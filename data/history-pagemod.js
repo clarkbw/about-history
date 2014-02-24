@@ -8,7 +8,7 @@ var HistoryRouter = Backbone.Router.extend({
 
 var HistoryItem = Backbone.Model.extend({
   initialize : function initialize(model, options) {
-    this.set("time", moment(parseInt(model.time)));
+    this.set("time", moment(model.time));
   },
   isSecure : function () {
     return (this.get("scheme") === "https");
