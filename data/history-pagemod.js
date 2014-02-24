@@ -34,16 +34,43 @@ var HistoryItemView = Backbone.View.extend({
   }
 });
 
+function normalize(obj) {
+  var value = "";
+  var keys = _.rest(arguments);
+  _.each(keys, function (k) {
+    if (_.has(obj, k) && obj[k] !== null) {
+      value = obj[k];
+    }
+  });
+  return value;
+}
+
 var HistoryList = Backbone.Collection.extend({
   model : HistoryItem,
   initialize : function initialize() {
     var that = this;
     self.port.on("icon:set", function (icon) {
+      if (!icon) { return; }
       var model = that.findWhere({ url : icon.url });
       if (model) {
         model.set("icon", icon.icon_url);
       }
     });
+
+    self.port.on("url:meta", function (metas) {
+      if (!metas) { return; }
+      var model = that.findWhere({ url : metas.url });
+      if (model) {
+        model.set({"title" : normalize(metas, "twitter:title", "og:title"),
+                   "description" : normalize(metas, "twitter:description", "og:description"),
+                   "image" : normalize(metas, "twitter:image", "og:image"),
+                   "twitter-site" : metas["twitter:site"],
+                   "twitter-author" : metas["twitter:creator"] });
+
+      console.log(JSON.stringify(that.models));
+      }
+    });
+
   },
   render : function render() {
     this.$el.html(this.template(this.model));

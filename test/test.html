@@ -3,6 +3,17 @@
   <head>
     <meta charset='utf-8'>
     <link href="../data/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    .favicon {
+      margin: 5px;
+      vertical-align: middle;
+      height: 16px;
+      width: 16px;
+    }
+    .host {
+      margin-left: 31px; /* 16 + 5 + 5 + 5 */
+    }
+    </style>
   </head>
   <body>
 
@@ -16,12 +27,15 @@
 
     <script type="text/template" id="history-item-template">
       <div class="row">
-        <div class="col-xs-1 col-sm-1">
-          <img src="<%= get('icon') %>">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 <%= get('image') ? '' : 'hidden' %>">
+          <img class="img-responsive img-thumbnail" src="<%= get('image') %>">
         </div>
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-          <h6><%= get('title') %></h6>
-          <div><%= get('host') %></div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+          <h5>
+            <img class="favicon" src="<%= get('icon') %>"> <%= get('title') %>
+            <p class="small text-info host"><%= get('host') %></p>
+          </h5>
+          <p><%= get('description') %></p>
           <p class="pull-right text-muted"><%= get('time').calendar() %>  &mdash; <%= get('time').fromNow() %></p>
         </div>
       </div>
