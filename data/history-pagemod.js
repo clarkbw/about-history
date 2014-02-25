@@ -103,11 +103,21 @@ var HistoryListView = Backbone.View.extend({
     this.collection.on('add', this.render, this);
   },
   render: function () {
+    this.$el.empty();
     this.collection.each(function (historyItem) {
       var view = new HistoryItemView({model: historyItem, id : historyItem.id});
       this.$el.append(view.render().$el);
     }.bind(this));
   return this;
+  }
+});
+
+var SearchInputView = Backbone.View.extend({
+  events : {
+    "keyup" : "onKeyUp"
+  },
+  onKeyUp : function () {
+    self.port.emit("history:events:query", this.$el.val());
   }
 });
 
@@ -118,6 +128,7 @@ var Application = Backbone.View.extend({
   initialize: function initialize() {
     var hl = this.historyList = new HistoryList();
     this.historyListView = new HistoryListView({ collection : this.historyList, el : $("#history-list-view") });
+    this.searchInputView = new SearchInputView({ el : $("#query") });
 
     self.port.on("history:reset", function(items) {
       if (items && Array.isArray(items)) {
