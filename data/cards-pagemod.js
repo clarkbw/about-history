@@ -2,24 +2,26 @@
 setTimeout(function () {
 
   var metas = {};
+  var selector;
+  var nodes;
 
-  // official twitter cards
-  var cards = document.querySelectorAll("meta[property^=twitter]");
-  for (var i = 0; i < cards.length; i++) {
-    metas[cards[i].getAttribute("property")] = cards[i].getAttribute("content");
+  selector = "meta[property^=twitter],meta[name^=twitter],meta[property^=og],meta[name^=og]";
+  nodes = document.querySelectorAll(selector);
+  for (var i = 0; i < nodes.length; i++) {
+    ["name", "property"].forEach(function (key) {
+      if (nodes[i].hasAttribute(key)) {
+        ["value", "content"].forEach(function (value) {
+          if (nodes[i].hasAttribute(value)) {
+            metas[nodes[i].getAttribute(key)] = nodes[i].getAttribute(value);
+          }
+        });
+      }
+    });
   }
 
-  // nyt twitter cards
-  var cards = document.querySelectorAll("meta[name^=twitter]");
-  for (var i = 0; i < cards.length; i++) {
-    metas[cards[i].getAttribute("name")] = cards[i].getAttribute("value");
-  }
-
-  var ographs = document.querySelectorAll("meta[property^=og]")
-  for (var i = 0; i < ographs.length; i++) {
-    metas[ographs[i].getAttribute("property")] = ographs[i].getAttribute("content");
-  }
-
+  console.log(metas);
+  // <link rel="canonical" href="http://www.cbc.ca/news/world/vladimir-putin-s-ukraine-dilemma-how-to-react-1.2549953" />
+  // <link rel="image_src" href="http://i.cbc.ca/1.2550391.1393332876!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_460/russia.jpg" /> 
   self.port.emit("metas", metas);
 
 }, 1000);

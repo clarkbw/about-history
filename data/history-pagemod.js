@@ -10,6 +10,25 @@ var HistoryItem = Backbone.Model.extend({
   initialize : function initialize(model, options) {
     this.set("time", moment(model.time));
   },
+  _getNotNull : function (list) {
+    return this.get(_.find(list, function (key) { return (this.get(key) != null && this.get(key).length > 0); }, this));
+  },
+  // some standard and convenience methods for info
+  title : function () {
+    return this._getNotNull(["twitter:title", "og:title", "title"]);
+  },
+  favicon : function () {
+    return this.get('icon');
+  },
+  description : function () {
+    return this._getNotNull(["twitter:description", "og:description"]);
+  },
+  hasImage : function () {
+    return (this.image() != null);
+  },
+  image : function () {
+    return this._getNotNull(["twitter:image", "twitter:image:src", "og:image"]);
+  },
   isSecure : function () {
     return (this.get("scheme") === "https");
   }
@@ -61,14 +80,9 @@ var HistoryList = Backbone.Collection.extend({
       if (!metas) { return; }
       var model = that.findWhere({ url : metas.url });
       if (model) {
-        model.set({"title" : normalize(metas, "twitter:title", "og:title"),
-                   "description" : normalize(metas, "twitter:description", "og:description"),
-                   "image" : normalize(metas, "twitter:image", "og:image"),
-                   "twitter-site" : metas["twitter:site"],
-                   "twitter-author" : metas["twitter:creator"] });
-
-      console.log(JSON.stringify(that.models));
+        model.set(metas);
       }
+      // console.log(JSON.stringify(that.models));
     });
 
   },

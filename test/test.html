@@ -5,13 +5,27 @@
     <link href="../data/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
     .favicon {
-      margin: 5px;
-      vertical-align: middle;
+      vertical-align: baseline;
       height: 16px;
       width: 16px;
     }
     .host {
-      margin-left: 31px; /* 16 + 5 + 5 + 5 */
+      margin-left: 21px; /* 16 + 5 + 5 + 5 */
+    }
+    .media {
+      cursor: pointer;
+    }
+    .media-heading {
+      white-space: nowrap;
+    }
+    .media-object {
+      max-width: 128px;
+      max-height: 128px;
+    }
+    .media-left {
+      width: 128px;
+      min-height: 32px;
+      max-height: 128px;
     }
     </style>
   </head>
@@ -21,24 +35,26 @@
       <h1>History</h1>
 
       <div id="history-items">
-        <ul id="history-list-view" class="list-group"></ul>
+        <div id="history-list-view"></div>
       </div>
     </div>
 
     <script type="text/template" id="history-item-template">
-      <div class="row">
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 <%= get('image') ? '' : 'hidden' %>">
-          <img class="img-responsive img-thumbnail" src="<%= get('image') %>">
+        <div class="media">
+          <a class="pull-left media-left">
+            <% if (hasImage()) { %>
+            <img class="media-object img-responsive" src="<%= image() %>">
+            <% } %>
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading" title="<%= title() %>">
+              <img class="favicon" src="<%= favicon() %>"> <%= title() %>
+              <p class="small text-info host"><%= get('host') %></p>
+            </h4>
+            <p><%= description() %></p>
+            <p class="pull-right text-muted"><%= get('time').calendar() %>  &mdash; <%= get('time').fromNow() %></p>
+          </div>
         </div>
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-          <h5>
-            <img class="favicon" src="<%= get('icon') %>"> <%= get('title') %>
-            <p class="small text-info host"><%= get('host') %></p>
-          </h5>
-          <p><%= get('description') %></p>
-          <p class="pull-right text-muted"><%= get('time').calendar() %>  &mdash; <%= get('time').fromNow() %></p>
-        </div>
-      </div>
     </script>
 
     <script type="text/javascript" src="./jquery.js"></script>
