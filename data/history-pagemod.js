@@ -118,6 +118,8 @@ var SearchInputView = Backbone.View.extend({
   },
   onKeyUp : function () {
     self.port.emit("history:events:query", this.$el.val());
+    // possibly debounce every second to set the query
+    // this.router.navigate("#query/query");
   }
 });
 
@@ -149,7 +151,6 @@ var Application = Backbone.View.extend({
     this.router = new HistoryRouter();
     Backbone.history.start({pushState: false});
 
-    // this.router.navigate("#query/topic/1001");
   }
 });
 
