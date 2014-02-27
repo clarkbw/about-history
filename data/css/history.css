@@ -1,4 +1,6 @@
 li.history {
+  border-top: 1px solid #eee;
+  padding-top: 25px;
   margin: 25px 0;
 }
 .icon {
@@ -6,8 +8,16 @@ li.history {
   height: 16px;
   width: 16px;
 }
-.host {
-  margin-left: 21px; /* 16 + 5 + 5 + 5 */
+div.favicon {
+  width: 16px;
+}
+img.favicon {
+  vertical-align: middle;
+  height: 16px;
+  width: 16px;
+}
+.image {
+  max-height: 180px;
 }
 .bookmark {
   border: 1px solid black;
