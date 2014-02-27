@@ -58,7 +58,7 @@
                     <div class="bookmark icon saved"/>
                   <% } %>
                 </div>
-                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                   <strong title="<%= title() %>" class="click-link"><%= title() %></strong>
                   <div title="<%= get('url') %>" class="click-link text-muted host"><%= get('host') %></div>
                   <% if (description()) { %>
@@ -69,6 +69,18 @@
                     <%= get('twitter:creator') ? " via " : "" %>
                     <span class="twitter-handle"><%= get('twitter:creator') %></span>
                   </div>
+                  <% if (description()) { %>
+                  <div class="btn-expander text-description">...</div>
+                  <% } %>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <ol class="list-unstyled">
+                    <li><a href="#">Open</a></li>
+                    <li><a href="#">Bookmark</a></li>
+                    <li><a href="#">Delete</a></li>
+                    <li><a href="#">Delete all related</a></li>
+                    <li><a href="#">View all related</a></li>
+                  </ol>
                 </div>
               </div>
             </div>

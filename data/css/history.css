@@ -4,6 +4,7 @@ li.history {
 .btn-expander {
   margin-top: 5px;
   color: #aaa;
+  cursor: pointer;
 }
 .icon {
   vertical-align: baseline;
