@@ -129,6 +129,9 @@ var Application = Backbone.View.extend({
     this.historyListView = new HistoryListView({ collection : this.historyList, el : $("#history-list-view") });
     this.searchInputView = new SearchInputView({ el : $("#query") });
 
+    self.port.on("history:date", function (date) {
+      $("#date").text(moment(date).format('LL'));
+    });
     self.port.on("history:reset", function(items) {
       if (items && Array.isArray(items)) {
         hl.reset(items.map(function(i) { return new HistoryItem(i); }));
