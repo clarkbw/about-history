@@ -89,9 +89,6 @@ var HistoryList = Backbone.Collection.extend({
   render : function render() {
     this.$el.html(this.template(this.model));
     return this;
-  },
-  comparator : function comparator(historyItem) {
-      return -1 * historyItem.get("time");
   }
 });
 
