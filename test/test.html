@@ -10,11 +10,12 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-          <h2>History</h2>
+          <h2><span class="text-muted">about:</span>history</h2>
+          <h4>date</h4>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <form role="form">
-            <input class="form-control" placeholder="Search..." type="search" id="query" name="query">
+            <h2><input class="form-control" placeholder="Search..." type="search" id="query" name="query"></h2>
           </form>
         </div>
       </div>
@@ -22,7 +23,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <div id="history-items">
-            <div id="history-list-view"></div>
+            <ol id="history-list-view" class="list-unstyled"></ol>
           </div>
         </div>
       </div>
@@ -30,24 +31,29 @@
 
 
     <script type="text/template" id="history-item-template">
-        <div class="media">
-          <a class="pull-left media-left">
-            <% if (hasImage()) { %>
-            <img class="media-object center-block img-responsive" src="<%= image() %>">
-            <% } %>
-          </a>
-          <div class="media-body">
-            <h4 class="media-heading" title="<%= title() %>">
-              <img class="favicon" src="<%= favicon() %>"> <%= title() %>
-              <p class="small text-info host"><%= get('host') %></p>
-            </h4>
-            <% if (description()) { %>
-              <blockquote class="text-muted"><%= description() %></blockquote>
-            <% } %>
-            <p class="pull-left text-muted"><%= get('twitter:site') %> <%= get('twitter:creator') ? " via " : "" %><%= get('twitter:creator') %></p>
-            <p class="pull-right text-muted"><%= get('time').calendar() %>  &mdash; <%= get('time').fromNow() %></p>
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <span class="text-muted"><%= get('time').format("h:mm a") %></span>
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+          <img class="favicon" src="<%= favicon() %>">
+          <strong title="<%= title() %>"><%= title() %></strong>
+          <div class="small text-info host"><%= get('host') %></div>
+          <div class="row">
+            <div class="col-xs-3 col-md-3">
+              <% if (hasImage()) { %>
+              <img class="img-thumbnail" src="<%= image() %>">
+              <% } %>
+            </div>
+            <div class="col-xs-9 col-md-9">
+              <% if (description()) { %>
+                <blockquote class="text-muted"><%= description() %></blockquote>
+              <% } %>
+              <p class="pull-left text-muted"><%= get('twitter:site') %> <%= get('twitter:creator') ? " via " : "" %><%= get('twitter:creator') %></p>
+            </div>
           </div>
         </div>
+      </div>
     </script>
 
     <script type="text/javascript" src="./jquery.js"></script>

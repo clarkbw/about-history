@@ -38,7 +38,7 @@ var HistoryItemView = Backbone.View.extend({
   events : {
     "click" : "onClickHistoryItemView"
   },
-  className : "history list-group-item",
+  className : "history",
   tagName : "li",
   template : _.template($('#history-item-template').html()),
   initialize: function initialize() {
