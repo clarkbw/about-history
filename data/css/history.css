@@ -1,7 +1,9 @@
 li.history {
-  border-top: 1px solid #eee;
-  padding-top: 25px;
   margin: 25px 0;
+}
+.btn-expander {
+  margin-top: 5px;
+  color: #aaa;
 }
 .icon {
   vertical-align: baseline;
@@ -28,4 +30,7 @@ img.favicon {
 
 .bookmark.saved {
   background-color: yellow;
+}
+.twitter-handle {
+  color: #55acee;
 }

@@ -40,7 +40,8 @@ var HistoryItem = Backbone.Model.extend({
 
 var HistoryItemView = Backbone.View.extend({
   events : {
-    "click" : "onClickHistoryItemView"
+    "click .click-link" : "onClickHistoryLink",
+    "click .btn-expander" : "onClickHistoryExpand"
   },
   className : "history",
   tagName : "li",
@@ -52,7 +53,10 @@ var HistoryItemView = Backbone.View.extend({
     this.$el.html(this.template(this.model));
     return this;
   },
-  onClickHistoryItemView : function () {
+  onClickHistoryExpand : function () {
+    this.$el.find(".text-description").toggleClass("hidden");
+  },
+  onClickHistoryLink : function () {
     addon.emit("history:events:click", this.model.get("url"));
   }
 });

@@ -31,10 +31,18 @@
 
     <script type="text/template" id="history-item-template">
       <div class="row">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+          <hr class="line">
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+          <button class="btn btn-sm btn-expander"><span class="caret"></span></button>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
           <span class="text-muted"><%= get('time').format("h:mm a") %></span>
         </div>
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
           <div class="row">
             <div class="col-xs-3 col-md-3">
               <% if (hasImage()) { %>
@@ -50,12 +58,16 @@
                   <% } %>
                 </div>
                 <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                  <strong title="<%= title() %>"><%= title() %></strong>
-                  <div title="<%= get('url') %>" class="small text-muted host"><%= get('host') %></div>
+                  <strong title="<%= title() %>" class="click-link"><%= title() %></strong>
+                  <div title="<%= get('url') %>" class="click-link text-muted host"><%= get('host') %></div>
                   <% if (description()) { %>
-                    <blockquote class="hidden text-muted"><%= description() %></blockquote>
+                    <blockquote class="text-description hidden text-muted"><%= description() %></blockquote>
                   <% } %>
-                  <div><%= get('twitter:site') %> <%= get('twitter:creator') ? " via " : "" %><%= get('twitter:creator') %></div>
+                  <div>
+                    <span class="twitter-handle"><%= get('twitter:site') %></span>
+                    <%= get('twitter:creator') ? " via " : "" %>
+                    <span class="twitter-handle"><%= get('twitter:creator') %></span>
+                  </div>
                 </div>
               </div>
             </div>
