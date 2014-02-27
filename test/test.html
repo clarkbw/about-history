@@ -45,10 +45,13 @@
               <div class="row">
                 <div class="favicon col-xs-1 col-sm-1 col-md-1 col-lg-1">
                   <img class="favicon" src="<%= favicon() %>">
+                  <% if (isBookmarked()) { %>
+                    <div class="bookmark icon saved"/>
+                  <% } %>
                 </div>
                 <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
                   <strong title="<%= title() %>"><%= title() %></strong>
-                  <div class="small text-muted host"><%= get('host') %></div>
+                  <div title="<%= get('url') %>" class="small text-muted host"><%= get('host') %></div>
                   <% if (description()) { %>
                     <blockquote class="hidden text-muted"><%= description() %></blockquote>
                   <% } %>
