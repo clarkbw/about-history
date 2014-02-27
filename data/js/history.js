@@ -90,9 +90,6 @@ var HistoryList = Backbone.Collection.extend({
   render : function render() {
     this.$el.html(this.template(this.model));
     return this;
-  },
-  comparator : function comparator(historyItem) {
-      return -1 * historyItem.get("time");
   }
 });
 
@@ -133,6 +130,10 @@ var Application = Backbone.View.extend({
     this.historyListView = new HistoryListView({ collection : this.historyList, el : $("#history-list-view") });
     this.searchInputView = new SearchInputView({ el : $("#query") });
 
+    addon.on("history:date", function (date) {
+      $("#date").text(moment(date).format('LL'));
+    });
+    addon.emit("history:date");
     addon.on("history:reset", function(items) {
       if (items && Array.isArray(items)) {
         hl.reset(items.map(function(i) { return new HistoryItem(i); }));
