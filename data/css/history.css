@@ -1,11 +1,21 @@
 li.history {
   margin: 25px 0;
 }
-.favicon {
+.icon {
   vertical-align: baseline;
   height: 16px;
   width: 16px;
 }
 .host {
   margin-left: 21px; /* 16 + 5 + 5 + 5 */
+}
+.bookmark {
+  border: 1px solid black;
+  background-color: grey;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.bookmark.saved {
+  background-color: yellow;
 }

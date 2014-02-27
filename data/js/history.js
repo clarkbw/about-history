@@ -27,6 +27,9 @@ var HistoryItem = Backbone.Model.extend({
   hasImage : function () {
     return (this.image() != null);
   },
+  isBookmarked : function () {
+    return !!this.get('bookmarked');
+  },
   image : function () {
     return this._getNotNull(["twitter:image", "twitter:image:src", "og:image"]);
   },
@@ -68,24 +71,26 @@ function normalize(obj) {
 var HistoryList = Backbone.Collection.extend({
   model : HistoryItem,
   initialize : function initialize() {
-    var that = this;
-    addon.on("icon:set", function (icon) {
+    addon.on("icon:set", icon => {
       if (!icon) { return; }
-      var model = that.findWhere({ url : icon.url });
+      var model = this.findWhere({ url : icon.url });
       if (model) {
         model.set("icon", icon.icon_url);
       }
     });
 
-    addon.on("url:meta", function (metas) {
+    addon.on("url:meta", metas => {
       if (!metas) { return; }
-      var model = that.findWhere({ url : metas.url });
+      var model = this.findWhere({ url : metas.url });
       if (model) {
         model.set(metas);
       }
-      // console.log(JSON.stringify(that.models));
     });
 
+    addon.on("url:bookmark", ({ url }) => {
+      var model = this.findWhere({ url : url });
+      model.set("bookmarked", true);
+    })
   },
   render : function render() {
     this.$el.html(this.template(this.model));

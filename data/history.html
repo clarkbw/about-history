@@ -36,7 +36,12 @@
           <span class="text-muted"><%= get('time').format("h:mm a") %></span>
         </div>
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-          <img class="favicon" src="<%= favicon() %>">
+          <% if (isBookmarked()) { %>
+            <div class="bookmark icon saved"/>
+          <% } else { %>
+            <div class="bookmark icon"/>
+          <% } %>
+          <img class="icon" src="<%= favicon() %>">
           <strong title="<%= title() %>"><%= title() %></strong>
           <div class="small text-info host"><%= get('host') %></div>
           <div class="row">
