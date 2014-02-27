@@ -4,6 +4,10 @@
   "id": "jid1-jpN6N35v1JHXDg",
   "description": "A better in-content history view",
   "author": "Bryan Clark",
+  "contributors": [
+    "Anthony Lam",
+    "Erik Vold"
+  ],
   "license": "MPL 2.0",
   "version": "0.1",
   "dependencies": [
