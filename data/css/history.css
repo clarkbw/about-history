@@ -6,6 +6,9 @@ li.history {
   color: #aaa;
   cursor: pointer;
 }
+.time {
+  white-space: nowrap;
+}
 .icon {
   vertical-align: baseline;
   height: 16px;
