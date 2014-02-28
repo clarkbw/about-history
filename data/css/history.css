@@ -17,8 +17,16 @@
 li.history {
   margin-bottom: 10px;
 }
+.circle {
+  display: inline-block;
+  border-radius: 50%;
+  width: 25px;
+  height:25px;
+  border: 0.2em solid #AAA;
+  float: left;
+}
 .line {
-  margin: 10px 0;
+  margin: 13px 0;
 }
 .action-expand {
   position: absolute;
