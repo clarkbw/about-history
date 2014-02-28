@@ -2,10 +2,14 @@
   cursor: pointer;
 }
 li.history {
-  margin: 25px 0;
+  margin-bottom: 10px;
+}
+.line {
+  margin: 10px 0;
 }
 .btn-expander {
-  margin-top: 5px;
+  position: absolute;
+  top: -5px;
   color: #aaa;
 }
 .btn-ellipsis {
@@ -30,15 +34,15 @@ img.favicon {
 .image {
   max-height: 180px;
 }
-.bookmark {
-  border: 1px solid black;
-  background-color: grey;
-  border-radius: 50%;
+.bookmarked {
   display: inline-block;
-}
-
-.bookmark.saved {
-  background-color: yellow;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-image: url('../images/bookmarked.png');
+  background-repeat: no-repeat;
+  top: -20px;
+  left: -5px;
 }
 .twitter-handle {
   color: #55acee;
