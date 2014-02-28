@@ -41,7 +41,7 @@ var HistoryItem = Backbone.Model.extend({
 var HistoryItemView = Backbone.View.extend({
   events : {
     "click .action-open" : "onClickHistoryLink",
-    "click .action-expander" : "onClickHistoryExpand",
+    "click .action-expand" : "onClickHistoryExpand",
     "click .action-ellipsis" : "onClickEllipsisExpand",
     "click #action-delete" : "onDelete"
   },
