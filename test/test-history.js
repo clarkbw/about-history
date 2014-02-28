@@ -5,7 +5,7 @@ const { on, once } = require('sdk/event/core');
 const { setTimeout } = require('sdk/timers');
 
 const { history } = require('about-history/history');
-const { History } = require('about-history/service/history');
+const { History } = require('about-history/history/service');
 
 const { serve, host } = require('./httpd');
 
