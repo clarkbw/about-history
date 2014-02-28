@@ -144,12 +144,15 @@ var SearchInputView = Backbone.View.extend({
 });
 
 var DatePickerView = Backbone.View.extend({
-  setDate : function (timestamp) {
+  setTimestamp : function (timestamp) {
     this.$el.datepicker('setDate', new Date(timestamp));
     this.setText();
   },
   setText : function () {
-    this.$el.text(moment(this.$el.datepicker('getDate')).format('LL'));
+    var date = this.$el.datepicker('getDate');
+    var diffYear = moment().year() != moment(date).year();
+    this.$el.text(moment(date).format("dddd, MMMM Do" + ((diffYear) ? " YYYY" : "")));
+    addon.emit("history:date", date);
   },
   events : {
     "click" : "onClick",
@@ -160,7 +163,6 @@ var DatePickerView = Backbone.View.extend({
   },
   onChangeDate : function (e) {
     this.setText();
-    addon.emit("history:date", e.date);
   },
   initialize: function initialize() {
     this.render();
