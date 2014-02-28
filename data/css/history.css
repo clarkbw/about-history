@@ -1,3 +1,14 @@
+#date-back,
+#date-forward {
+  position: fixed;
+  top: 45%;
+}
+#date-back {
+  left: 0;
+}
+#date-forward {
+  right: 0;
+}
 #date {
   border: none;
   font-weight: bold;

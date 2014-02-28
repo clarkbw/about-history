@@ -143,17 +143,72 @@ var SearchInputView = Backbone.View.extend({
   }
 });
 
+var DateModel = Backbone.Model.extend({
+  subtractDay : function () {
+    var m = this.moment().subtract('days', 1);
+    this.set('date', m.toJSON());
+  },
+  addDay : function () {
+    var m = this.moment().add('days', 1);
+    this.set('date', m.toJSON());
+  },
+  isToday : function () {
+    var m = this.moment();
+    var now = moment();
+    return now.isSame(m, 'day') && now.isSame(m, 'month') && now.isSame(m, 'year');
+  },
+  setDate : function (date) {
+    this.set('date', moment(date).startOf('day').toJSON());
+  },
+  moment : function () {
+    return moment(this.get('date'));
+  },
+  date : function () {
+    return this.moment().toDate();
+  }
+});
+
+var BackDateStepView = Backbone.View.extend({
+  events : {
+    "click" : "onClick"
+  },
+  onClick : function () {
+    this.model.subtractDay();
+  },
+  initialize: function initialize() {
+    this.model.on("change", this.render, this);
+  },
+  render: function () {
+    if (this.model.isToday()) {
+      this.$el.text("Yesterday");
+    } else {
+      this.$el.text("Back");
+    }
+    return this;
+  }
+});
+
+var ForwardDateStepView = Backbone.View.extend({
+  events : {
+    "click" : "onClick"
+  },
+  onClick : function () {
+    this.model.addDay();
+  },
+  initialize: function initialize() {
+    this.model.on("change", this.render, this);
+  },
+  render: function () {
+    if (this.model.isToday()) {
+      this.$el.text("Tomorrow");
+    } else {
+      this.$el.text("Forward");
+    }
+    return this;
+  }
+});
+
 var DatePickerView = Backbone.View.extend({
-  setTimestamp : function (timestamp) {
-    this.$el.datepicker('setDate', new Date(timestamp));
-    this.setText();
-  },
-  setText : function () {
-    var date = this.$el.datepicker('getDate');
-    var diffYear = moment().year() != moment(date).year();
-    this.$el.text(moment(date).format("dddd, MMMM Do" + ((diffYear) ? " YYYY" : "")));
-    addon.emit("history:date", date);
-  },
   events : {
     "click" : "onClick",
     "changeDate" : "onChangeDate"
@@ -162,15 +217,25 @@ var DatePickerView = Backbone.View.extend({
     this.$el.datepicker('show');
   },
   onChangeDate : function (e) {
-    this.setText();
+    this.model.setDate(e.date);
   },
   initialize: function initialize() {
-    this.render();
-    this.setTimestamp(Date.now());
+    this.model.on("change", this.render, this);
+    this.model.on("change", function () {
+      addon.emit("history:date", this.model.date());
+    }, this);
+
+    this.back = new BackDateStepView({ model : this.model, el : $("#date-back") });
+    this.forward = new ForwardDateStepView({ model : this.model, el : $("#date-forward") });
+
+    this.model.setDate(new Date());
   },
   render: function () {
+    var date = this.model.date();
     var tomorrow = moment().add('days', 1).toDate();
     this.$el.datepicker({ autoclose : true, todayHighlight : true, endDate : tomorrow });
+    this.$el.datepicker('setDate', date);
+    this.$el.text(moment(date).format("dddd, MMMM Do" + ((moment().isSame(date, 'year')) ? "" : " YYYY")));
     return this;
   }
 });
@@ -183,7 +248,7 @@ var Application = Backbone.View.extend({
     var hl = this.historyList = new HistoryList();
     this.historyListView = new HistoryListView({ collection : this.historyList, el : $("#history-list-view") });
     this.searchInputView = new SearchInputView({ el : $("#query") });
-    this.datePickerView = new DatePickerView({ el : $("#date") });
+    this.datePickerView = new DatePickerView({ model : new DateModel() ,el : $("#date") });
 
     addon.on("history:reset", function(items) {
       if (items && Array.isArray(items)) {
