@@ -88,7 +88,7 @@ function normalize(obj) {
 var HistoryList = Backbone.Collection.extend({
   model : HistoryItem,
   initialize : function initialize() {
-    addon.on("icon:set", icon => {
+    addon.on("url:icon", icon => {
       if (!icon) { return; }
       var model = this.findWhere({ url : icon.url });
       if (model) {
