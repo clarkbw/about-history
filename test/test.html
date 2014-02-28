@@ -36,7 +36,7 @@
           <hr class="line">
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-          <button class="btn btn-sm btn-expander" data-toggle="button"><span class="caret"></span></button>
+          <button class="btn btn-sm action-expand" data-toggle="button"><span class="caret"></span></button>
         </div>
       </div>
       <div class="row">
@@ -59,8 +59,8 @@
                   <img class="favicon" src="<%= favicon() %>">
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                  <strong title="<%= title() %>" class="click-link"><%= title() %></strong>
-                  <div title="<%= get('url') %>" class="click-link text-muted host"><%= get('host') %></div>
+                  <strong title="<%= title() %>" class="action-open"><%= title() %></strong>
+                  <div title="<%= get('url') %>" class="action-open text-muted host"><%= get('host') %></div>
                   <% if (description()) { %>
                     <blockquote class="text-description hidden text-muted"><%= description() %></blockquote>
                   <% } %>
@@ -70,12 +70,12 @@
                     <span class="twitter-handle"><%= get('twitter:creator') %></span>
                   </div>
                   <% if (description()) { %>
-                  <div class="btn-ellipsis text-description">...</div>
+                  <div class="action-ellipsis text-description">...</div>
                   <% } %>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                   <ol class="list-unstyled">
-                    <li><a href="" id="action-open">Open</a></li>
+                    <li><a href="" class="action-open" title="Open in a new Tab">Open</a></li>
                     <li><a href="" id="action-bookmark">Bookmark</a></li>
                     <li><a href="" id="action-delete">Delete</a></li>
                     <li><a href="" id="action-delete-related">Delete all related</a></li>

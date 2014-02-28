@@ -40,9 +40,9 @@ var HistoryItem = Backbone.Model.extend({
 
 var HistoryItemView = Backbone.View.extend({
   events : {
-    "click .click-link" : "onClickHistoryLink",
-    "click .btn-expander" : "onClickHistoryExpand",
-    "click .btn-ellipsis" : "onClickEllipsisExpand",
+    "click .action-open" : "onClickHistoryLink",
+    "click .action-expander" : "onClickHistoryExpand",
+    "click .action-ellipsis" : "onClickEllipsisExpand",
     "click #action-delete" : "onDelete"
   },
   className : "history",
@@ -57,17 +57,20 @@ var HistoryItemView = Backbone.View.extend({
   },
   onClickEllipsisExpand : function () {
     this.$el.find("button.btn-expander").button('toggle');
-    this.onClickHistoryExpand();
+    return this.onClickHistoryExpand();
   },
   onClickHistoryExpand : function () {
     this.$el.find(".text-description").toggleClass("hidden");
+    return false;
   },
   onClickHistoryLink : function () {
     addon.emit("history:events:click", this.model.get("url"));
+    return false;
   },
   onDelete: function () {
     addon.emit("history:events:delete", this.model.get("url"));
     this.remove();
+    return false;
   }
 });
 
