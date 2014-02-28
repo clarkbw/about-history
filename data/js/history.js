@@ -166,7 +166,7 @@ var DatePickerView = Backbone.View.extend({
   },
   initialize: function initialize() {
     this.render();
-    this.setDate(Date.now());
+    this.setTimestamp(Date.now());
   },
   render: function () {
     var tomorrow = moment().add('days', 1).toDate();
