@@ -1,9 +1,14 @@
+#date {
+  cursor: pointer;
+}
 li.history {
   margin: 25px 0;
 }
 .btn-expander {
   margin-top: 5px;
   color: #aaa;
+}
+.btn-ellipsis {
   cursor: pointer;
 }
 .time {

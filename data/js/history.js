@@ -41,7 +41,8 @@ var HistoryItem = Backbone.Model.extend({
 var HistoryItemView = Backbone.View.extend({
   events : {
     "click .click-link" : "onClickHistoryLink",
-    "click .btn-expander" : "onClickHistoryExpand"
+    "click .btn-expander" : "onClickHistoryExpand",
+    "click .btn-ellipsis" : "onClickEllipsisExpand"
   },
   className : "history",
   tagName : "li",
@@ -52,6 +53,10 @@ var HistoryItemView = Backbone.View.extend({
   render : function render() {
     this.$el.html(this.template(this.model));
     return this;
+  },
+  onClickEllipsisExpand : function () {
+    this.$el.find("button.btn-expander").button('toggle');
+    this.onClickHistoryExpand();
   },
   onClickHistoryExpand : function () {
     this.$el.find(".text-description").toggleClass("hidden");
@@ -130,6 +135,36 @@ var SearchInputView = Backbone.View.extend({
   }
 });
 
+var DatePickerView = Backbone.View.extend({
+  setDate : function (timestamp) {
+    this.$el.datepicker('setDate', new Date(timestamp));
+    this.setText();
+  },
+  setText : function () {
+    this.$el.text(moment(this.$el.datepicker('getDate')).format('LL'));
+  },
+  events : {
+    "click" : "onClick",
+    "hide" : "onChangeDate"
+  },
+  onClick : function () {
+    this.$el.datepicker('show');
+  },
+  onChangeDate : function (e) {
+    this.setText();
+    addon.emit("history:date", e.date);
+  },
+  initialize: function initialize() {
+    this.render();
+    this.setDate(Date.now());
+  },
+  render: function () {
+    var tomorrow = moment().add('days', 1).toDate();
+    this.$el.datepicker({ autoclose : true, todayHighlight : true, endDate : tomorrow });
+    return this;
+  }
+});
+
 var Application = Backbone.View.extend({
   events : {
 
@@ -138,11 +173,8 @@ var Application = Backbone.View.extend({
     var hl = this.historyList = new HistoryList();
     this.historyListView = new HistoryListView({ collection : this.historyList, el : $("#history-list-view") });
     this.searchInputView = new SearchInputView({ el : $("#query") });
+    this.datePickerView = new DatePickerView({ el : $("#date") });
 
-    addon.on("history:date", function (date) {
-      $("#date").text(moment(date).format('LL'));
-    });
-    addon.emit("history:date");
     addon.on("history:reset", function(items) {
       if (items && Array.isArray(items)) {
         hl.reset(items.map(function(i) { return new HistoryItem(i); }));
