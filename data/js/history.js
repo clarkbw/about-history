@@ -153,7 +153,7 @@ var DatePickerView = Backbone.View.extend({
   },
   events : {
     "click" : "onClick",
-    "hide" : "onChangeDate"
+    "changeDate" : "onChangeDate"
   },
   onClick : function () {
     this.$el.datepicker('show');
