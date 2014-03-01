@@ -281,6 +281,6 @@ var Application = Backbone.View.extend({
 var HistoryApp = new Application({el : $("#history-items")});
 
 window.addEventListener('load', function onLoad() {
-  window.addEventListener('load', onLoad, false);
+  window.removeEventListener('load', onLoad, false);
   addon.emit("history:events:query", "");
 }, false);
