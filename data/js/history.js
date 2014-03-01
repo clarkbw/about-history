@@ -13,6 +13,9 @@ var HistoryRouter = Backbone.Router.extend({
 var HistoryItem = Backbone.Model.extend({
   initialize : function initialize(model, options) {
     this.set("time", moment(model.time));
+    if (this.get("twitter:creator") == this.get("twitter:site")) {
+      this.unset("twitter:creator");
+    }
   },
   _getNotNull : function (list) {
     return this.get(_.find(list, function (key) { return (this.get(key) != null && this.get(key).length > 0); }, this));
