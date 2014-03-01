@@ -16,6 +16,11 @@ var HistoryItem = Backbone.Model.extend({
     if (this.get("twitter:creator") == this.get("twitter:site")) {
       this.unset("twitter:creator");
     }
+    ["twitter:creator", "twitter:site"].forEach(function (t) {
+      if (this.has(t) && this.get(t).indexOf("@") !== 0) {
+        this.unset(t);
+      }
+    }, this);
   },
   _getNotNull : function (list) {
     return this.get(_.find(list, function (key) { return (this.get(key) != null && this.get(key).length > 0); }, this));
