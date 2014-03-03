@@ -71,7 +71,10 @@ var HistoryItemView = Backbone.View.extend({
     return this.onClickHistoryExpand();
   },
   onClickHistoryExpand : function () {
-    this.$el.find(".text-description").toggleClass("hidden");
+    // toggle the actual meta information
+    this.$el.find(".row.meta").toggleClass("hidden");
+    // toggle the ... which indicates there is a description
+    this.$el.find(".action-ellipsis").toggleClass("hidden");
     return false;
   },
   onClickHistoryLink : function () {
