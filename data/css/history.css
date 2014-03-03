@@ -2,6 +2,7 @@
 #date-forward {
   position: fixed;
   top: 45%;
+  background-color: #E1E6EB;
 }
 #date-back {
   left: 0;
@@ -22,11 +23,12 @@ li.history {
   border-radius: 50%;
   width: 25px;
   height:25px;
-  border: 0.2em solid #AAA;
+  border: 4px solid #f4f4f4;
   float: left;
 }
 .line {
   margin: 13px 0;
+  border-color: #f4f4f4;
 }
 .action-expand {
   position: absolute;
@@ -35,6 +37,7 @@ li.history {
 }
 .time {
   white-space: nowrap;
+  color: #51626E;
 }
 .icon {
   vertical-align: baseline;
