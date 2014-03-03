@@ -117,7 +117,14 @@ var HistoryList = Backbone.Collection.extend({
 
     addon.on("url:bookmark", ({ url }) => {
       var model = this.findWhere({ url : url });
-      model.set("bookmarked", true);
+      if (model)
+        model.set("bookmarked", true);
+    })
+
+    addon.on("bookmark:removed", ({ url }) => {
+      var model = this.findWhere({ url : url });
+      if (model)
+        model.set("bookmarked", false);
     })
   },
   render : function render() {
