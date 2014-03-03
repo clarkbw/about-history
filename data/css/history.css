@@ -69,3 +69,9 @@ img.favicon {
 .action-ellipsis {
   cursor: pointer;
 }
+.action-box {
+  visibility: hidden;
+}
+.row:hover > .action-box {
+  visibility: visible;
+}
