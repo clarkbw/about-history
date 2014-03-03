@@ -157,7 +157,11 @@ var SearchInputView = Backbone.View.extend({
   events : {
     "keyup" : "onKeyUp"
   },
-  onKeyUp : function () {
+  onKeyUp : function (e) {
+    // on ESC clear the search
+    if (e.keyCode == 27) {
+      this.$el.val("");
+    }
     addon.emit("history:events:query", this.$el.val());
     // possibly debounce every second to set the query
     // this.router.navigate("#query/query");
