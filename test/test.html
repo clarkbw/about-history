@@ -46,60 +46,59 @@
           <button class="btn btn-sm action-expand" data-toggle="button"><span class="caret"></span></button>
         </div>
       </div>
+
       <div class="row">
+
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
           <span class="time text-muted"><%= get('time').format("h:mm a") %></span>
         </div>
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+          <% if (isBookmarked()) { %>
+            <div class="bookmarked icon"/>
+          <% } %>
+          <% if (hasImage()) { %>
+          <img class="center-block img-responsive image" src="<%= image() %>">
+          <% } %>
+        </div>
+
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
           <div class="row">
-            <div class="col-xs-3 col-md-3">
-              <% if (isBookmarked()) { %>
-                <div class="bookmarked icon"/>
-              <% } %>
-              <% if (hasImage()) { %>
-              <img class="center-block img-responsive image" src="<%= image() %>">
-              <% } %>
+
+            <div class="favicon col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              <img class="favicon" src="<%= favicon() %>">
             </div>
-            <div class="col-xs-9 col-md-9">
-              <div class="row">
-                <div class="favicon col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                  <img class="favicon" src="<%= favicon() %>">
-                </div>
-                <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                      <strong title="<%= title() %>" class="action-open"><%= title() %></strong>
-                      <div title="<%= get('url') %>" class="action-open text-muted host"><%= get('host') %></div>
-                    </div>
-                  </div>
-                  <div class="row hidden meta">
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                      <% if (description()) { %>
-                        <blockquote class="text-description text-muted"><%= description() %></blockquote>
-                      <% } %>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                      <ol class="list-unstyled">
-                        <li><a href="" class="action-open" title="Open in a new Tab">Open</a></li>
-                        <li><a href="" id="action-delete">Delete</a></li>
-                        <li><a href="" id="action-delete-related">Delete all related</a></li>
-                        <li><a href="" id="action-search-related">View all related</a></li>
-                      </ol>
-                    </div>
-                  </div>
-                  <div>
-                    <span class="twitter-handle"><%= get('twitter:site') %></span>
-                    <%= get('twitter:creator') ? " via " : "" %>
-                    <span class="twitter-handle"><%= get('twitter:creator') %></span>
-                  </div>
-                  <% if (description()) { %>
-                  <div class="action-ellipsis">...</div>
-                  <% } %>
-                </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+              <strong title="<%= title() %>" class="action-open"><%= title() %></strong>
+              <div title="<%= get('url') %>" class="action-open text-muted host"><%= get('host') %></div>
+              <div class="hidden meta">
+                <% if (description()) { %>
+                  <blockquote class="text-description text-muted small"><%= description() %></blockquote>
+                <% } %>
               </div>
+              <div>
+                <span class="twitter-handle"><%= get('twitter:site') %></span>
+                <%= get('twitter:creator') ? " via " : "" %>
+                <span class="twitter-handle"><%= get('twitter:creator') %></span>
+              </div>
+              <% if (description()) { %>
+              <div class="action-ellipsis">...</div>
+              <% } %>
             </div>
+
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <ol class="list-unstyled meta hidden">
+                <li><a href="" class="action-open" title="Open in a new Tab">Open</a></li>
+                <li><a href="" id="action-delete">Delete</a></li>
+                <li><a href="" id="action-delete-related">Delete all related</a></li>
+                <li><a href="" id="action-search-related">View all related</a></li>
+              </ol>
+            </div>
+
           </div>
         </div>
+
       </div>
     </script>
 
