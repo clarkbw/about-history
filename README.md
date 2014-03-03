@@ -12,5 +12,5 @@ This add-on requires these modules in the `packages` directory.
  - [indexed-db-storage](https://github.com/clarkbw/indexed-db-storage)
 
 From the base directory do this:
-`git clone https://github.com/clarkbw/addon-pathfinder.git packages/addon-pathfinder`
+`git clone https://github.com/erikvold/addon-pathfinder.git packages/addon-pathfinder`
 `git clone https://github.com/clarkbw/indexed-db-storage.git packages/indexed-db-storage`
