@@ -79,9 +79,13 @@
                 <% } %>
               </div>
               <div>
-                <span class="twitter-handle"><%= get('twitter:site') %></span>
+                <a href="https://twitter.com/<%= (get('twitter:site') || '').replace(/^@/, '') %>" target="_blank" class="twitter-handle">
+                  <%= get('twitter:site') %>
+                </a>
                 <%= get('twitter:creator') ? " via " : "" %>
-                <span class="twitter-handle"><%= get('twitter:creator') %></span>
+                <a href="https://twitter.com/<%= (get('twitter:site') || '').replace(/^@/, '') %>" target="_blank" class="twitter-handle">
+                  <%= get('twitter:creator') %>
+                </a>
               </div>
               <% if (description()) { %>
               <div class="action-ellipsis">...</div>

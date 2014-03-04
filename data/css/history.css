@@ -68,6 +68,9 @@ img.favicon {
 .twitter-handle {
   color: #55acee;
 }
+.twitter-handle:hover {
+  color: #55acee;
+}
 .action-open,
 .action-ellipsis {
   cursor: pointer;
