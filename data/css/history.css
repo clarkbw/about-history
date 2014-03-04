@@ -72,3 +72,11 @@ img.favicon {
 .action-ellipsis {
   cursor: pointer;
 }
+.title {
+  color: #000;
+  font-weight: bold;
+}
+.title:hover {
+  color: #000;
+  text-decoration: none;
+}
