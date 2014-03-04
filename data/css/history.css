@@ -1,3 +1,30 @@
+@font-face{
+  font-family: 'FiraLight';
+  src: url('../fonts/FiraSansOT-Light.otf') format("opentype");
+}
+
+@font-face{
+  font-family: 'FiraRegular';
+  src: url('../fonts/FiraSansOT-Regular.otf') format("opentype");
+}
+
+@font-face{
+  font-family: 'ClearSans';
+  src: url('../fonts/ClearSans-Regular.ttf');
+}
+
+.text-muted {
+  font-family: FiraLight, Times, Helvetica, sans-serif;
+}
+
+h2 {
+  font-family: FiraRegular, Times, Helvetica, sans-serif;
+}
+
+body {
+  font-family: ClearSans, Times, Helvetica, sans-serif;
+}
+
 #date-back,
 #date-forward {
   position: fixed;
@@ -54,6 +81,7 @@ img.favicon {
 }
 .image {
   max-height: 180px;
+  max-width: 250px;
 }
 .bookmarked {
   display: inline-block;
@@ -72,3 +100,4 @@ img.favicon {
 .action-ellipsis {
   cursor: pointer;
 }
+
