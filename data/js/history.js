@@ -247,7 +247,10 @@ var DatePickerView = Backbone.View.extend({
   initialize: function initialize() {
     this.model.on("change", this.render, this);
     this.model.on("change", function () {
-      addon.emit("history:date", this.model.date());
+      addon.emit("history:events:query", {
+        date: this.model.date(),
+        query: $("#query").val().trim()
+      });
     }, this);
 
     this.back = new BackDateStepView({ model : this.model, el : $("#date-back") });
