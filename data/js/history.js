@@ -67,7 +67,7 @@ var HistoryItemView = Backbone.View.extend({
     return this;
   },
   onClickEllipsisExpand : function () {
-    this.$el.find("button.btn-expander").button('toggle');
+    this.$el.find("button.action-expand").button('toggle');
     return this.onClickHistoryExpand();
   },
   onClickHistoryExpand : function () {
@@ -75,7 +75,6 @@ var HistoryItemView = Backbone.View.extend({
     this.$el.find(".meta").toggleClass("hidden");
     // toggle the ... which indicates there is a description
     this.$el.find(".action-ellipsis").toggleClass("hidden");
-    return false;
   },
   onClickHistoryLink : function () {
     addon.emit("history:events:click", this.model.get("url"));
