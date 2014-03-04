@@ -42,13 +42,21 @@ body {
 #date-forward {
   right: 0;
 }
+
 #date {
   border: 1px solid #8A9BA8;
   height: 30px;
   margin-top: 5px;
   margin-bottom: 20px;
   font-size: 12px;
+  color: #424F59;
 }
+
+#date:hover {
+  background-color: #0092DB;
+  color: white;
+}
+
 li.history {
   margin-bottom: 10px;
 }
@@ -67,7 +75,9 @@ li.history {
 
 .time {
   white-space: nowrap;
-  color: #51626E;
+  color: #424F59;
+  font-size: 14px;
+  padding-left: 30px;
 }
 .icon {
   vertical-align: baseline;
@@ -83,8 +93,8 @@ img.favicon {
   width: 16px;
 }
 .image {
-  max-height: 180px;
-  max-width: 250px;
+  max-height: 90px;
+  max-width: 125px;
 }
 .bookmarked {
   display: inline-block;
@@ -94,7 +104,7 @@ img.favicon {
   background-image: url('../images/bookmarked.png');
   background-repeat: no-repeat;
   top: -24px;
-  left: -5px;
+  left: 62px;
 }
 .twitter-handle {
   color: #55acee;
@@ -131,6 +141,46 @@ img.favicon {
   /*box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;*/
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
+
+/*.btn-default {
+  color: #333;
+  background-color: #FFF;
+  border-color: #CCC;
+}
+
+.btn-default:hover {
+
+}*/
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0px;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+/*  padding: 6px 12px;*/
+  font-size: 14px;
+  line-height: 1.42857;
+  border-radius: 4px;
+  -moz-user-select: none;
+}
+
+.btn-sm {
+  position: absolute; 
+  margin-top: -2px;
+  height: 30px;
+  width: 30px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 5px;
+}
+
+
 
 
 
