@@ -15,14 +15,19 @@
 
 .text-muted {
   font-family: FiraLight, Times, Helvetica, sans-serif;
+  color:#424F59;
 }
 
 h2 {
   font-family: FiraRegular, Times, Helvetica, sans-serif;
+  color: #424F59;
+  font-size: 24px;
+  margin-top: 40px;
 }
 
 body {
   font-family: ClearSans, Times, Helvetica, sans-serif;
+  color: #424F59;
 }
 
 #date-back,
@@ -38,9 +43,11 @@ body {
   right: 0;
 }
 #date {
-  border: none;
-  font-weight: bold;
-  padding: 5px 2px;
+  border: 1px solid #8A9BA8;
+  height: 30px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-size: 12px;
 }
 li.history {
   margin-bottom: 10px;
@@ -50,18 +57,14 @@ li.history {
   border-radius: 50%;
   width: 25px;
   height:25px;
-  border: 4px solid #f4f4f4;
+  border: 5px solid #f4f4f4;
   float: left;
 }
 .line {
-  margin: 13px 0;
-  border-color: #f4f4f4;
+  margin: 11px 0;
+  border: 1px solid #f4f4f4;
 }
-.action-expand {
-  position: absolute;
-  top: -5px;
-  color: #aaa;
-}
+
 .time {
   white-space: nowrap;
   color: #51626E;
@@ -112,3 +115,25 @@ img.favicon {
   color: #000;
   text-decoration: none;
 }
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #424F59;
+  background-color: #FFF;
+  background-image: none;
+  border: 1px solid #8A9BA8;
+  border-radius: 5px;
+  /*box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;*/
+  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+
+
+
+
+
+
