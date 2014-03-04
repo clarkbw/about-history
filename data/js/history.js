@@ -46,6 +46,11 @@ var HistoryItem = Backbone.Model.extend({
   },
   isSecure : function () {
     return (this.get("scheme") === "https");
+  },
+  twitterURL : function (handle) {
+    if (handle) {
+      return "https://twitter.com/" + handle.replace(/^@/, '');
+    }
   }
 });
 
