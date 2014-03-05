@@ -50,11 +50,7 @@ a:hover {
 
 .text-muted {
   font-family: FiraLight, Helvetica, sans-serif;
-  color:#A0A7AC;
-}
-
-.text-muted host {
-  font-family: FiraLight, Helvetica, sans-serif;
+  font-size: 12px;
   color:#A0A7AC;
 }
 
