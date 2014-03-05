@@ -284,8 +284,6 @@ var DatePickerView = Backbone.View.extend({
 
     this.back = new BackDateStepView({ model : this.model, el : $("#date-back") });
     this.forward = new ForwardDateStepView({ model : this.model, el : $("#date-forward") });
-
-    this.model.setDate(new Date());
   },
   render: function () {
     var date = this.model.date();
@@ -329,12 +327,10 @@ var Application = Backbone.View.extend({
     this.router = new HistoryRouter();
     Backbone.history.start({pushState: false});
 
+    // ######### INIT DATE #############
+    // This causes our initial load of the current date
+    this.datePickerView.model.setDate(new Date());
   }
 });
 
 var HistoryApp = new Application({el : $("#history-items")});
-
-window.addEventListener('load', function onLoad() {
-  window.removeEventListener('load', onLoad, false);
-  addon.emit("history:events:query", "");
-}, false);
