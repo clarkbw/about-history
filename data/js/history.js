@@ -29,6 +29,9 @@ var HistoryItem = Backbone.Model.extend({
   title : function () {
     return this._getNotNull(["twitter:title", "og:title", "title"]);
   },
+  selected : function () {
+    return (this.get('selected') || false) ? "selected" : "";
+  },
   favicon : function () {
     return this.get('icon');
   },
@@ -56,6 +59,7 @@ var HistoryItem = Backbone.Model.extend({
 
 var HistoryItemView = Backbone.View.extend({
   events : {
+    "click *": "onRowClick",
     "click .action-expand" : "onClickHistoryExpand",
     "click .action-ellipsis" : "onClickEllipsisExpand",
     "click #action-delete" : "onDelete",
@@ -65,7 +69,10 @@ var HistoryItemView = Backbone.View.extend({
   tagName : "li",
   template : _.template($('#history-item-template').html()),
   initialize: function initialize() {
-    this.model.on('change', this.render, this);
+    this.model.on('change', _ => {
+      console.log('detected a change!!');
+      this.render();
+    });
     this.model.on('destroy', this.remove, this);
   },
   render : function render() {
@@ -82,6 +89,11 @@ var HistoryItemView = Backbone.View.extend({
     this.$el.find(".meta").toggleClass("hidden");
     // toggle the ... which indicates there is a description
     this.$el.find(".action-ellipsis").toggleClass("hidden");
+  },
+  onRowClick: function() {
+    let selected = !this.model.get("selected");
+    this.model.set("selected", selected);
+    return false;
   },
   onDelete: function () {
     addon.emit("history:events:delete", this.model.get("url"));

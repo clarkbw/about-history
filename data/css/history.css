@@ -136,6 +136,9 @@ li.history {
   border: 5px solid #f4f4f4;
   float: left;
 }
+.circle.selected {
+  background-color: #55acee;
+}
 .line {
   margin: 11px 0;
   border: 1px solid #f4f4f4;
