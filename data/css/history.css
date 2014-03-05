@@ -13,21 +13,49 @@
   src: url('../fonts/ClearSans-Regular.ttf');
 }
 
-.text-muted {
-  font-family: FiraLight, Times, Helvetica, sans-serif;
-  color:#424F59;
-}
-
 h2 {
-  font-family: FiraRegular, Times, Helvetica, sans-serif;
+  font-family: FiraRegular, Helvetica, sans-serif;
   color: #424F59;
   font-size: 24px;
   margin-top: 40px;
 }
 
 body {
-  font-family: ClearSans, Times, Helvetica, sans-serif;
+  font-family: ClearSans, Helvetica, sans-serif;
   color: #424F59;
+}
+
+a {
+  color: #424F59;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0092DB;
+  text-decoration: underline;
+}
+
+.title {
+  font-family: ClearSans, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #424F59;
+  text-decoration: none;
+}
+
+.title:hover {
+  color: #0092DB;
+  text-decoration: underline;
+}
+
+.text-muted {
+  font-family: FiraLight, Helvetica, sans-serif;
+  color:#A0A7AC;
+}
+
+.text-muted host {
+  font-family: FiraLight, Helvetica, sans-serif;
+  color:#A0A7AC;
 }
 
 #date-back,
@@ -111,7 +139,6 @@ img.favicon {
   left: 62px;
 }
 
-
 .twitter-handle {
   color: #55acee;
 }
@@ -121,15 +148,6 @@ img.favicon {
 .action-open,
 .action-ellipsis {
   cursor: pointer;
-}
-
-.title {
-  color: #000;
-  font-weight: bold;
-}
-.title:hover {
-  color: #000;
-  text-decoration: none;
 }
 
 .form-control {
@@ -147,16 +165,6 @@ img.favicon {
   /*box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;*/
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
-
-/*.btn-default {
-  color: #333;
-  background-color: #FFF;
-  border-color: #CCC;
-}
-
-.btn-default:hover {
-
-}*/
 
 .btn {
   display: inline-block;
@@ -213,7 +221,14 @@ img.favicon {
   box-shadow: none;
 }
 
-
+blockquote {
+  font-family: ClearSans, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #424F59;
+  padding: 0px 20px;
+  margin: 10px 0px 10px 0px;
+  border-left: 4px solid #F4F4F4;
+}
 
 
 
