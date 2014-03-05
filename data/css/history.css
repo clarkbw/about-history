@@ -221,7 +221,7 @@ img.favicon {
 }
 
 .btn-sm {
-  position: absolute; 
+  position: absolute;
   background-image: url('../images/expand.png');
   background-color: white;
   background-size: contain;
@@ -267,8 +267,6 @@ blockquote {
   border-left: 4px solid #F4F4F4;
 }
 
-
-
-
-
-
+.hide {
+  display: none;
+}

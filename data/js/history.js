@@ -189,10 +189,19 @@ var DateModel = Backbone.Model.extend({
     var m = this.moment().add('days', 1);
     this.set('date', m.toJSON());
   },
+  isYesterday: function() {
+    var m = this.moment();
+    var yesterday = moment().subtract('days', 1);
+    return yesterday.isSame(m, 'day') &&
+           yesterday.isSame(m, 'month') &&
+           yesterday.isSame(m, 'year');
+  },
   isToday : function () {
     var m = this.moment();
     var now = moment();
-    return now.isSame(m, 'day') && now.isSame(m, 'month') && now.isSame(m, 'year');
+    return now.isSame(m, 'day') &&
+           now.isSame(m, 'month') &&
+           now.isSame(m, 'year');
   },
   setDate : function (date) {
     this.set('date', moment(date).startOf('day').toJSON());
@@ -238,8 +247,15 @@ var ForwardDateStepView = Backbone.View.extend({
   render: function () {
     if (this.model.isToday()) {
       this.$el.text("Tomorrow");
-    } else {
+      this.$el.addClass("hide");
+    }
+    else if (this.model.isYesterday()) {
+      this.$el.text("Today");
+      this.$el.removeClass("hide");
+    }
+    else {
       this.$el.text("Forward");
+      this.$el.removeClass("hide");
     }
     return this;
   }
