@@ -17,7 +17,7 @@ var HistoryItem = Backbone.Model.extend({
       this.unset("twitter:creator");
     }
     ["twitter:creator", "twitter:site"].forEach(function (t) {
-      if (this.has(t) && this.get(t).indexOf("@") !== 0) {
+      if (this.has(t) && !/^[@A-Za-z0-9_]{1,15}$/.test(this.get(t))) {
         this.unset(t);
       }
     }, this);
