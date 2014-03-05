@@ -298,11 +298,14 @@ var Application = Backbone.View.extend({
 
     // this will help get single history additions
     addon.on("history:add", function(item) {
+      var hi;
       if (item) {
-        console.log("ITEM", item);
-        hl.add(new HistoryItem(item));
-      } else {
-        console.log("NOT ITEM", item);
+        hi = hl.findWhere({ url : item.url });
+        if (!hi) {
+          hl.add(new HistoryItem(item));
+        } else {
+          hi.set(item);
+        }
       }
     });
 
