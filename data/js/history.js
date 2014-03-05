@@ -17,7 +17,7 @@ var HistoryItem = Backbone.Model.extend({
       this.unset("twitter:creator");
     }
     ["twitter:creator", "twitter:site"].forEach(function (t) {
-      if (this.has(t) && this.get(t).indexOf("@") !== 0) {
+      if (this.has(t) && !/^[@A-Za-z0-9_]{1,15}$/.test(this.get(t))) {
         this.unset(t);
       }
     }, this);
@@ -314,11 +314,14 @@ var Application = Backbone.View.extend({
 
     // this will help get single history additions
     addon.on("history:add", function(item) {
+      var hi;
       if (item) {
-        console.log("ITEM", item);
-        hl.add(new HistoryItem(item));
-      } else {
-        console.log("NOT ITEM", item);
+        hi = hl.findWhere({ url : item.url });
+        if (!hi) {
+          hl.add(new HistoryItem(item));
+        } else {
+          hi.set(item);
+        }
       }
     });
 

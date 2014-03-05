@@ -82,7 +82,7 @@ h2 .text-muted {
   text-align: left;
   padding-top: 8px;
   padding-left: 45px;
-  z-index: 99999;
+  z-index: 9999;
 }
 
 #date-back:hover {
@@ -103,7 +103,7 @@ h2 .text-muted {
   text-align: right;
   padding-top: 8px;
   padding-right: 45px;
-  z-index: 99999;
+  z-index: 9999;
 }
 
 #date-forward:hover {
@@ -113,6 +113,7 @@ h2 .text-muted {
 #date {
   border: 1px solid #8A9BA8;
   height: 30px;
+  width: 150px;
   margin-top: 5px;
   margin-bottom: 20px;
   font-size: 12px;
@@ -200,7 +201,7 @@ img.favicon {
   border: 1px solid #8A9BA8;
   border-radius: 5px;
   /*box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;*/
-  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  transition: border-color 0.1s ease-in-out 0s, box-shadow 0.1s ease-in-out 0s;
 }
 
 .btn {
