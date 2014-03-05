@@ -56,7 +56,6 @@ var HistoryItem = Backbone.Model.extend({
 
 var HistoryItemView = Backbone.View.extend({
   events : {
-    "click .action-open" : "onClickHistoryLink",
     "click .action-expand" : "onClickHistoryExpand",
     "click .action-ellipsis" : "onClickEllipsisExpand",
     "click #action-delete" : "onDelete"
@@ -80,10 +79,6 @@ var HistoryItemView = Backbone.View.extend({
     this.$el.find(".meta").toggleClass("hidden");
     // toggle the ... which indicates there is a description
     this.$el.find(".action-ellipsis").toggleClass("hidden");
-  },
-  onClickHistoryLink : function () {
-    addon.emit("history:events:click", this.model.get("url"));
-    return false;
   },
   onDelete: function () {
     addon.emit("history:events:delete", this.model.get("url"));
