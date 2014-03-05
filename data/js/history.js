@@ -70,6 +70,7 @@ var HistoryItemView = Backbone.View.extend({
   },
   render : function render() {
     this.$el.html(this.template(this.model));
+    this.$el.find('.time').tooltip();
     return this;
   },
   onClickEllipsisExpand : function () {
