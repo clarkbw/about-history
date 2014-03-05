@@ -58,13 +58,15 @@ var HistoryItemView = Backbone.View.extend({
   events : {
     "click .action-expand" : "onClickHistoryExpand",
     "click .action-ellipsis" : "onClickEllipsisExpand",
-    "click #action-delete" : "onDelete"
+    "click #action-delete" : "onDelete",
+    "click #action-delete-related" : "onDeleteRelated"
   },
   className : "history",
   tagName : "li",
   template : _.template($('#history-item-template').html()),
   initialize: function initialize() {
     this.model.on('change', this.render, this);
+    this.model.on('destroy', this.remove, this);
   },
   render : function render() {
     this.$el.html(this.template(this.model));
@@ -82,7 +84,10 @@ var HistoryItemView = Backbone.View.extend({
   },
   onDelete: function () {
     addon.emit("history:events:delete", this.model.get("url"));
-    this.remove();
+    return false;
+  },
+  onDeleteRelated: function() {
+    addon.emit("history:events:delete-related", this.model.get("url"));
     return false;
   }
 });
@@ -128,6 +133,14 @@ var HistoryList = Backbone.Collection.extend({
       if (model)
         model.set("bookmarked", false);
     })
+
+    addon.on("history:removed", ({ url }) => {
+      var model = this.findWhere({ url : url });
+
+      if (model) {
+        model.destroy();
+      }
+    });
   },
   render : function render() {
     this.$el.html(this.template(this.model));
