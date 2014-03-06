@@ -23,7 +23,10 @@ var HistoryItem = Backbone.Model.extend({
     }, this);
   },
   _getNotNull : function (list) {
-    return this.get(_.find(list, function (key) { return (this.get(key) != null && this.get(key).length > 0); }, this));
+    return this.get(list.find(key => {
+      let value = this.get(key);
+      return (value != null && value.length > 0);
+    }));
   },
   // some standard and convenience methods for info
   title : function () {
@@ -69,10 +72,8 @@ var HistoryItemView = Backbone.View.extend({
   tagName : "li",
   template : _.template($('#history-item-template').html()),
   initialize: function initialize() {
-    this.model.on('change', _ => {
-      this.render();
-    });
-    this.model.on('destroy', this.remove, this);
+    this.model.on('change', _ => this.render());
+    this.model.on('destroy', _ => this.remove());
   },
   render : function render() {
     this.$el.html(this.template(this.model));
