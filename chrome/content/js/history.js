@@ -314,7 +314,7 @@ var DatePickerView = Backbone.View.extend({
   render: function () {
     var date = this.model.date();
     var tomorrow = moment().add('days', 1).toDate();
-    this.$el.datepicker({ autoclose : true, todayHighlight : true, endDate : tomorrow });
+    this.$el.datepicker({ autoclose : true, todayHighlight : true, endDate : tomorrow, todayBtn : "linked" });
     this.$el.datepicker('setDate', date);
     this.$el.text(moment(date).format("dddd, MMMM Do" + ((moment().isSame(date, 'year')) ? "" : " YYYY")));
     return this;
