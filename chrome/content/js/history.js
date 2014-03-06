@@ -48,7 +48,7 @@ var HistoryItem = Backbone.Model.extend({
     return !!this.get('bookmarked');
   },
   image : function () {
-    return this._getNotNull(["twitter:image", "twitter:image:src", "og:image"]);
+    return this._getNotNull(["icon:fluid-icon", "twitter:image", "twitter:image:src", "og:image"]);
   },
   isSecure : function () {
     return (this.get("scheme") === "https");

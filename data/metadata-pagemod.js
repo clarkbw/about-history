@@ -3,11 +3,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-setTimeout(_ => {
-  let metas = {};
-  let selector = "meta[property^=twitter],meta[name^=twitter],meta[property^=og],meta[name^=og]";
-  let nodes = document.querySelectorAll(selector);
+let metas = {};
 
+setTimeout(_ => {
+  let nodes = document.querySelectorAll("meta[property^=twitter],meta[name^=twitter],meta[property^=og],meta[name^=og]");
   for (let i = 0, l = nodes.length; i < l; i++) {
     ["name", "property"].forEach(key => {
       if (nodes[i].hasAttribute(key)) {
@@ -22,6 +21,23 @@ setTimeout(_ => {
 
   // <link rel="canonical" href="http://www.cbc.ca/news/world/vladimir-putin-s-ukraine-dilemma-how-to-react-1.2549953" />
   // <link rel="image_src" href="http://i.cbc.ca/1.2550391.1393332876!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_460/russia.jpg" />
-  metas['url'] = document.location.href;
-  self.port.emit("metas", metas);
+  getIcons().then(_ => {
+    if (Object.keys(metas).length > 0) {
+      metas['url'] = document.location.href;
+      self.port.emit("metas", metas);
+    }
+  }).then(_ => self.port.emit("destroy"));
 }, 200);
+
+function getIcons() {
+  let p = new Promise((resolve) => {
+    setTimeout(_ => {
+      let node = document.querySelector("head > link[rel='fluid-icon']");
+      if (node) {
+        metas['icon:fluid-icon'] = node.getAttribute('href');
+      }
+      resolve();
+    });
+  });
+  return p;
+}
