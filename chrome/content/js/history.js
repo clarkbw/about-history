@@ -245,9 +245,13 @@ var ForwardDateStepView = Backbone.View.extend({
     this.model.on("change", this.render, this);
   },
   render: function () {
-    if (this.model.isToday()) {
-      this.$el.text("Tomorrow");
+    if (this.model.isSameDay(moment().add('days', 1), this.model.moment())) {
+      this.$el.text("Beyond");
       this.$el.addClass("hide");
+    }
+    else if (this.model.isToday()) {
+      this.$el.text("Tomorrow");
+      this.$el.removeClass("hide");
     }
     else if (this.model.isYesterday()) {
       this.$el.text("Today");
