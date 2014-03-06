@@ -70,7 +70,6 @@ var HistoryItemView = Backbone.View.extend({
   template : _.template($('#history-item-template').html()),
   initialize: function initialize() {
     this.model.on('change', _ => {
-      console.log('detected a change!!');
       this.render();
     });
     this.model.on('destroy', this.remove, this);
