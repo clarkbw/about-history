@@ -202,6 +202,12 @@ function sendQuery({ date, query }) {
   });
 }
 
+function isSameDay (day1, day2) {
+  return day1.isSame(day2, 'day') &&
+         day1.isSame(day2, 'month') &&
+         day1.isSame(day2, 'year')
+}
+
 var DateModel = Backbone.Model.extend({
   subtractDay : function () {
     var m = this.moment().subtract('days', 1);
@@ -211,16 +217,11 @@ var DateModel = Backbone.Model.extend({
     var m = this.moment().add('days', 1);
     this.set('date', m.toJSON());
   },
-  isSameDay: (day1, day2) => {
-    return day1.isSame(day2, 'day') &&
-           day1.isSame(day2, 'month') &&
-           day1.isSame(day2, 'year')
-  },
   isYesterday: function() {
-    return this.isSameDay(moment().subtract('days', 1), this.moment());
+    return isSameDay(moment().subtract('days', 1), this.moment());
   },
   isToday : function () {
-    return this.isSameDay(moment(), this.moment());
+    return isSameDay(moment(), this.moment());
   },
   setDate : function (date) {
     this.set('date', moment(date).startOf('day').toJSON());
@@ -264,7 +265,7 @@ var ForwardDateStepView = Backbone.View.extend({
     this.model.on("change", this.render, this);
   },
   render: function () {
-    if (this.model.isSameDay(moment().add('days', 1), this.model.moment())) {
+    if (isSameDay(moment().add('days', 1), this.model.moment())) {
       this.$el.text("Beyond");
       this.$el.addClass("hide");
     }
@@ -276,7 +277,7 @@ var ForwardDateStepView = Backbone.View.extend({
       this.$el.text("Today");
       this.$el.removeClass("hide");
     }
-    else if (this.model.isSameDay(moment().subtract('days', 2), this.model.moment())) {
+    else if (isSameDay(moment().subtract('days', 2), this.model.moment())) {
       this.$el.text("Yesterday");
       this.$el.removeClass("hide");
     }
@@ -328,8 +329,9 @@ var Application = Backbone.View.extend({
       collection : this.historyList,
       el : $("#history-list-view")
     });
+    let dateModel = new DateModel();
     this.datePickerView = new DatePickerView({
-      model : new DateModel(),
+      model : dateModel,
       el : $("#date")
     });
     this.searchInputView = new SearchInputView({
@@ -345,11 +347,16 @@ var Application = Backbone.View.extend({
 
     // this will help get single history additions
     addon.on("history:add", item => {
-      var hi = hl.findWhere({ url : item.url });
-      if (hi) {
-        hi.set(item);
-      } else {
-        hl.add(new HistoryItem(item), { at: 0 });
+      // check if the time for the history item is for the
+      // date currently displayed
+      if (isSameDay(moment(item.time), dateModel.moment())) {
+        var hi = hl.findWhere({ url : item.url });
+        if (hi) {
+          hi.set(item);
+        }
+        else {
+          hl.add(new HistoryItem(item), { at: 0 });
+        }
       }
     });
 
