@@ -165,8 +165,8 @@ var HistoryListView = Backbone.View.extend({
   },
   render: function () {
     this.$el.empty();
-    this.collection.each(historyItem => {
-      var view = new HistoryItemView({model: historyItem, id : historyItem.id});
+    this.collection.each(item => {
+      var view = new HistoryItemView({model: item, id : item.id});
       this.$el.append(view.render().$el);
     });
   return this;
@@ -322,9 +322,6 @@ var DatePickerView = Backbone.View.extend({
 });
 
 var Application = Backbone.View.extend({
-  events : {
-
-  },
   initialize: function initialize() {
     var hl = this.historyList = new HistoryList();
     this.historyListView = new HistoryListView({
@@ -340,22 +337,19 @@ var Application = Backbone.View.extend({
       datePickerView: this.datePickerView
     });
 
-    addon.on("history:reset", function(items) {
-      if (items && Array.isArray(items)) {
-        hl.reset(items.map(function(i) { return new HistoryItem(i); }));
+    addon.on("history:reset", items => {
+      if (Array.isArray(items)) {
+        hl.reset(items.map(i => new HistoryItem(i)));
       }
     });
 
     // this will help get single history additions
-    addon.on("history:add", function(item) {
-      var hi;
-      if (item) {
-        hi = hl.findWhere({ url : item.url });
-        if (!hi) {
-          hl.add(new HistoryItem(item));
-        } else {
-          hi.set(item);
-        }
+    addon.on("history:add", item => {
+      var hi = hl.findWhere({ url : item.url });
+      if (hi) {
+        hi.set(item);
+      } else {
+        hl.add(new HistoryItem(item));
       }
     });
 
