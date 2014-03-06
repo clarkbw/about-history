@@ -1,7 +1,7 @@
 This is a Firefox Add-on that displays your history visually.  While you browse this add-on gathers additional meta data from the websites you visit; things like description, title, and images.  When you review your history via the `about:history` page you'll see more useful information than just the URL and page title normally provided.
 
-See screenshot: http://cl.ly/image/0g2W1Z353A0w
-See example page: https://rawgithub.com/clarkbw/about-history/master/chrome/content/history.html
+* See screenshot: http://cl.ly/image/0g2W1Z353A0w
+* See example page: https://rawgithub.com/clarkbw/about-history/master/chrome/content/history.html
 
 Coding
 =====
