@@ -3,10 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-setTimeout(function () {
-
-  var metas = {};
-
+setTimeout(_ => {
+  let metas = {};
   let selector = "meta[property^=twitter],meta[name^=twitter],meta[property^=og],meta[name^=og]";
   let nodes = document.querySelectorAll(selector);
 
@@ -26,5 +24,4 @@ setTimeout(function () {
   // <link rel="image_src" href="http://i.cbc.ca/1.2550391.1393332876!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_460/russia.jpg" />
   metas['url'] = document.location.href;
   self.port.emit("metas", metas);
-
 }, 200);
