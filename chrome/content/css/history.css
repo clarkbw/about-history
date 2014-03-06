@@ -255,7 +255,7 @@ img.favicon {
   text-decoration: none;
 }
 
-.btn:active, .btn.active {
+.action-expand.btn.active {
   outline: 0px none;
   background-image: url('../images/minimize.png');
   background-color: white;
