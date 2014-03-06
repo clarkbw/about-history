@@ -86,10 +86,12 @@
                 <a href="<%= twitterURL(get('twitter:site')) %>" target="_blank" class="twitter-handle">
                   <%= get('twitter:site') %>
                 </a>
-                <%= get('twitter:creator') ? " via " : "" %>
-                <a href="<%= twitterURL(get('twitter:creator')) %>" target="_blank" class="twitter-handle">
-                  <%= get('twitter:creator') %>
-                </a>
+                <% if (get('twitter:creator') != get('twitter:site')) { %>
+                  <%= get('twitter:creator') ? " via " : "" %>
+                  <a href="<%= twitterURL(get('twitter:creator')) %>" target="_blank" class="twitter-handle">
+                    <%= get('twitter:creator') %>
+                  </a>
+                <% } %>
               </div>
               <% if (description()) { %>
                 <div class="action-ellipsis">...</div>
