@@ -6,22 +6,7 @@
 let metas = {};
 
 setTimeout(_ => {
-  let nodes = document.querySelectorAll("meta[property^=twitter],meta[name^=twitter],meta[property^=og],meta[name^=og]");
-  for (let i = 0, l = nodes.length; i < l; i++) {
-    ["name", "property"].forEach(key => {
-      if (nodes[i].hasAttribute(key)) {
-        ["value", "content"].forEach(value => {
-          if (nodes[i].hasAttribute(value)) {
-            metas[nodes[i].getAttribute(key)] = nodes[i].getAttribute(value);
-          }
-        });
-      }
-    });
-  }
-
-  // <link rel="canonical" href="http://www.cbc.ca/news/world/vladimir-putin-s-ukraine-dilemma-how-to-react-1.2549953" />
-  // <link rel="image_src" href="http://i.cbc.ca/1.2550391.1393332876!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_460/russia.jpg" />
-  getIcons().then(_ => {
+  getTwitterInfo().then(getIcons).then(_ => {
     if (Object.keys(metas).length > 0) {
       metas['url'] = document.location.href;
       self.port.emit("metas", metas);
@@ -29,15 +14,30 @@ setTimeout(_ => {
   }).then(_ => self.port.emit("destroy"));
 }, 200);
 
-function getIcons() {
-  let p = new Promise((resolve) => {
-    setTimeout(_ => {
-      let node = document.querySelector("head > link[rel='fluid-icon']");
-      if (node) {
-        metas['icon:fluid-icon'] = node.getAttribute('href');
-      }
-      resolve();
-    });
+function getTwitterInfo() new Promise(resolve => {
+  setTimeout(_ => {
+    let nodes = document.querySelectorAll("meta[property^=twitter],meta[name^=twitter],meta[property^=og],meta[name^=og]");
+    for (let i = 0, l = nodes.length; i < l; i++) {
+      ["name", "property"].forEach(key => {
+        if (nodes[i].hasAttribute(key)) {
+          ["value", "content"].forEach(value => {
+            if (nodes[i].hasAttribute(value)) {
+              metas[nodes[i].getAttribute(key)] = nodes[i].getAttribute(value);
+            }
+          });
+        }
+      });
+    }
+    resolve();
   });
-  return p;
-}
+});
+
+function getIcons() new Promise((resolve) => {
+  setTimeout(_ => {
+    let node = document.querySelector("head > link[rel='fluid-icon']");
+    if (node) {
+      metas['icon:fluid-icon'] = node.getAttribute('href');
+    }
+    resolve();
+  });
+});
