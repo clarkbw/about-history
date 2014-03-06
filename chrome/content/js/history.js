@@ -82,12 +82,14 @@ var HistoryItemView = Backbone.View.extend({
   onClickEllipsisExpand : function () {
     this.$el.find("button.action-expand").button('toggle');
     return this.onClickHistoryExpand();
+    return false;
   },
   onClickHistoryExpand : function () {
     // toggle the actual meta information
     this.$el.find(".meta").toggleClass("hidden");
     // toggle the ... which indicates there is a description
     this.$el.find(".action-ellipsis").toggleClass("hidden");
+    return false;
   },
   onRowClick: function() {
     let selected = !this.model.get("selected");
@@ -103,17 +105,6 @@ var HistoryItemView = Backbone.View.extend({
     return false;
   }
 });
-
-function normalize(obj) {
-  var value = "";
-  var keys = _.rest(arguments);
-  _.each(keys, function (k) {
-    if (_.has(obj, k) && obj[k] !== null) {
-      value = obj[k];
-    }
-  });
-  return value;
-}
 
 var HistoryList = Backbone.Collection.extend({
   model : HistoryItem,
@@ -169,10 +160,10 @@ var HistoryListView = Backbone.View.extend({
   },
   render: function () {
     this.$el.empty();
-    this.collection.each(function (historyItem) {
+    this.collection.each(historyItem => {
       var view = new HistoryItemView({model: historyItem, id : historyItem.id});
       this.$el.append(view.render().$el);
-    }.bind(this));
+    });
   return this;
   }
 });
@@ -201,19 +192,16 @@ var DateModel = Backbone.Model.extend({
     var m = this.moment().add('days', 1);
     this.set('date', m.toJSON());
   },
+  isSameDay: (day1, day2) => {
+    return day1.isSame(day2, 'day') &&
+           day1.isSame(day2, 'month') &&
+           day1.isSame(day2, 'year')
+  },
   isYesterday: function() {
-    var m = this.moment();
-    var yesterday = moment().subtract('days', 1);
-    return yesterday.isSame(m, 'day') &&
-           yesterday.isSame(m, 'month') &&
-           yesterday.isSame(m, 'year');
+    return isSameDay(moment().subtract('days', 1), this.moment());
   },
   isToday : function () {
-    var m = this.moment();
-    var now = moment();
-    return now.isSame(m, 'day') &&
-           now.isSame(m, 'month') &&
-           now.isSame(m, 'year');
+    return isSameDay(moment(), this.moment());
   },
   setDate : function (date) {
     this.set('date', moment(date).startOf('day').toJSON());
