@@ -278,3 +278,7 @@ blockquote {
 .hide, .day.disabled {
   display: none;
 }
+
+.datepicker-dropdown:before {
+  border-color: -moz-use-text-color transparent;
+}
