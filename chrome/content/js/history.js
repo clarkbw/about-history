@@ -59,7 +59,7 @@ var HistoryItem = Backbone.Model.extend({
 
 var HistoryItemView = Backbone.View.extend({
   events : {
-    "click *": "onRowClick",
+    "click .circle, hr": "onSelect",
     "click .action-expand" : "onClickHistoryExpand",
     "click .action-ellipsis" : "onClickEllipsisExpand",
     "click #action-delete" : "onDelete",
@@ -91,7 +91,7 @@ var HistoryItemView = Backbone.View.extend({
     this.$el.find(".action-ellipsis").toggleClass("hidden");
     return false;
   },
-  onRowClick: function() {
+  onSelect: function() {
     let selected = !this.model.get("selected");
     this.model.set("selected", selected);
     return false;
@@ -198,10 +198,10 @@ var DateModel = Backbone.Model.extend({
            day1.isSame(day2, 'year')
   },
   isYesterday: function() {
-    return isSameDay(moment().subtract('days', 1), this.moment());
+    return this.isSameDay(moment().subtract('days', 1), this.moment());
   },
   isToday : function () {
-    return isSameDay(moment(), this.moment());
+    return this.isSameDay(moment(), this.moment());
   },
   setDate : function (date) {
     this.set('date', moment(date).startOf('day').toJSON());
