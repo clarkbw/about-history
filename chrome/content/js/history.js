@@ -349,7 +349,7 @@ var Application = Backbone.View.extend({
       if (hi) {
         hi.set(item);
       } else {
-        hl.add(new HistoryItem(item));
+        hl.add(new HistoryItem(item), { at: 0 });
       }
     });
 
