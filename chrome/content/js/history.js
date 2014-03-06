@@ -172,16 +172,30 @@ var SearchInputView = Backbone.View.extend({
   events : {
     "keyup" : "onKeyUp"
   },
+  initialize: function(options) {
+    this.datePickerView = options.datePickerView;
+  },
   onKeyUp : function (e) {
     // on ESC clear the search
     if (e.keyCode == 27) {
       this.$el.val("");
     }
-    addon.emit("history:events:query", this.$el.val());
+    sendQuery({
+      date: this.datePickerView.model.date(),
+      query: $("#query").val()
+    });
     // possibly debounce every second to set the query
     // this.router.navigate("#query/query");
   }
 });
+
+function sendQuery({ date, query }) {
+  addon.emit("history:events:query", {
+    from: moment(date).startOf('day').format("X") * 1000,
+    to: moment(date).endOf('day').format("X") * 1000,
+    query: query.trim()
+  });
+}
 
 var DateModel = Backbone.Model.extend({
   subtractDay : function () {
@@ -283,9 +297,9 @@ var DatePickerView = Backbone.View.extend({
   initialize: function initialize() {
     this.model.on("change", this.render, this);
     this.model.on("change", function () {
-      addon.emit("history:events:query", {
+      sendQuery({
         date: this.model.date(),
-        query: $("#query").val().trim()
+        query: $("#query").val()
       });
     }, this);
 
@@ -308,9 +322,18 @@ var Application = Backbone.View.extend({
   },
   initialize: function initialize() {
     var hl = this.historyList = new HistoryList();
-    this.historyListView = new HistoryListView({ collection : this.historyList, el : $("#history-list-view") });
-    this.searchInputView = new SearchInputView({ el : $("#query") });
-    this.datePickerView = new DatePickerView({ model : new DateModel() ,el : $("#date") });
+    this.historyListView = new HistoryListView({
+      collection : this.historyList,
+      el : $("#history-list-view")
+    });
+    this.datePickerView = new DatePickerView({
+      model : new DateModel(),
+      el : $("#date")
+    });
+    this.searchInputView = new SearchInputView({
+      el : $("#query"),
+      datePickerView: this.datePickerView
+    });
 
     addon.on("history:reset", function(items) {
       if (items && Array.isArray(items)) {
