@@ -78,6 +78,9 @@ var HistoryItemView = Backbone.View.extend({
   render : function render() {
     this.$el.html(this.template(this.model));
     this.$el.find('.time').tooltip();
+    this.$el.find('img.image').error(({ target }) => {
+      target.classList.add("hide");
+    }).attr('src', this.model.image());
     return this;
   },
   onClickEllipsisExpand : function () {
