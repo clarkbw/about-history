@@ -275,6 +275,6 @@ blockquote {
   border-left: 4px solid #F4F4F4;
 }
 
-.hide {
+.hide, .day.disabled {
   display: none;
 }
