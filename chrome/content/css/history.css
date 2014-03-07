@@ -282,3 +282,43 @@ blockquote {
 .datepicker-dropdown:before {
   border-color: -moz-use-text-color transparent;
 }
+
+#lasthistory {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 120px;
+  margin-bottom: 120px;
+  font-family: ClearSans, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #A0A7AC;
+  width:400px;
+  text-align: center;
+}
+
+#lasthistory img {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #A0A7AC;
+  width:200px;
+  text-align: center;
+}
+
+#lasthistory a {
+  font-family: ClearSans, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #A0A7AC;
+}
+
+#lasthistory a:hover {
+  color: #0092DB;
+  text-decoration: underline;
+}
+
+#lasthistory h2 {
+  font-family: FiraRegular, Helvetica, sans-serif;
+  font-size: 24px;
+  color: #A0A7AC;
+}
+
+
+
