@@ -6,15 +6,18 @@
 let metas = {};
 
 setTimeout(_ => {
-  getTwitterInfo().then(getIcons).then(_ => {
+  getTwitterInfo();
+  getIcons();
+  setTimeout(_ => {
     if (Object.keys(metas).length > 0) {
       metas['url'] = document.location.href;
       self.port.emit("metas", metas);
     }
-  }).then(_ => self.port.emit("destroy"));
+    self.port.emit("destroy");
+  });
 }, 200);
 
-function getTwitterInfo() new Promise(resolve => {
+function getTwitterInfo() {
   setTimeout(_ => {
     let nodes = document.querySelectorAll("meta[property^=twitter],meta[name^=twitter],meta[property^=og],meta[name^=og]");
     for (let i = 0, l = nodes.length; i < l; i++) {
@@ -28,16 +31,14 @@ function getTwitterInfo() new Promise(resolve => {
         }
       });
     }
-    resolve();
   });
-});
+};
 
-function getIcons() new Promise((resolve) => {
+function getIcons() {
   setTimeout(_ => {
     let node = document.querySelector("head > link[rel='fluid-icon']");
     if (node) {
       metas['icon:fluid-icon'] = node.getAttribute('href');
     }
-    resolve();
   });
-});
+};
