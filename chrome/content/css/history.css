@@ -287,7 +287,7 @@ blockquote {
   margin-left: auto;
   margin-right: auto;
   margin-top: 120px;
-  margin-bottom: 120px;
+  margin-bottom: 60px;
   font-family: ClearSans, Helvetica, sans-serif;
   font-size: 14px;
   color: #A0A7AC;
@@ -319,6 +319,23 @@ blockquote {
   font-size: 24px;
   color: #A0A7AC;
 }
+
+#footer {
+  background-color: #f4f4f4;
+  width: 100%;
+  padding-bottom: 60px;
+  color: #9BA2A7;
+  text-align: center;
+}
+
+#footer img {
+  height: 20px;
+  margin-top: 40px;
+  margin-bottom:20px;
+}
+
+
+
 
 
 
