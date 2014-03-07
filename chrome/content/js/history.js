@@ -370,3 +370,9 @@ var Application = Backbone.View.extend({
 });
 
 var HistoryApp = new Application({el : $("#history-items")});
+
+// HACK: fixing #top links
+Array.slice(document.querySelectorAll("a[href^='#']")).forEach(link => {
+  let href = window.document.location.href.replace(/#.*/, '') + link.getAttribute('href');
+  link.setAttribute("href", href);
+});
