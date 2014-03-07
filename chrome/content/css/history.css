@@ -334,7 +334,9 @@ blockquote {
   margin-bottom:20px;
 }
 
-
+.container {
+  min-height: 500px;
+}
 
 
 
