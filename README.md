@@ -2,6 +2,7 @@ This is a Firefox Add-on that displays your history visually.  While you browse 
 
 * See screenshot: http://cl.ly/image/0g2W1Z353A0w
 * See example page: https://rawgithub.com/clarkbw/about-history/master/chrome/content/history.html
+* See Add-on: https://addons.mozilla.org/firefox/addon/about-history/
 
 Coding
 =====
