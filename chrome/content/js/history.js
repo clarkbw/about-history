@@ -223,6 +223,9 @@ var DateModel = Backbone.Model.extend({
   isToday : function () {
     return isSameDay(moment(), this.moment());
   },
+  isTomorrow: function () {
+    return isSameDay(moment().add('days', 1), this.moment())
+  },
   setDate : function (date) {
     this.set('date', moment(date).startOf('day').toJSON());
   },
@@ -245,7 +248,10 @@ var BackDateStepView = Backbone.View.extend({
     this.model.on("change", this.render, this);
   },
   render: function () {
-    if (this.model.isToday()) {
+    if (this.model.isTomorrow()) {
+      this.$el.text("Today");
+    }
+    else if (this.model.isToday()) {
       this.$el.text("Yesterday");
     } else {
       this.$el.text("Back");
@@ -265,7 +271,7 @@ var ForwardDateStepView = Backbone.View.extend({
     this.model.on("change", this.render, this);
   },
   render: function () {
-    if (isSameDay(moment().add('days', 1), this.model.moment())) {
+    if (this.model.isTomorrow()) {
       this.$el.text("Beyond");
       this.$el.addClass("hide");
     }
