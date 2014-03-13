@@ -360,6 +360,12 @@ var Application = Backbone.View.extend({
       }
     });
 
+    // animate a scroll back to the top
+    $("a[href=#top]").click(function () {
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      return false;
+    });
+
     this.router = new HistoryRouter();
     Backbone.history.start({pushState: false});
 
