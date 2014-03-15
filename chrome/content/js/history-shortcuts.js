@@ -3,12 +3,19 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 'use strict';
 
-document.body.addEventListener('keypress', ({ key }) => {
+document.body.addEventListener('keypress', ({ key, target }) => {
+  if (target.id == 'query') return;
   if (key == 'Backspace') {
-    HistoryApp.historyList.forEach(item => {
-      if (item.get('selected')) {
-        addon.emit("history:events:delete", item.get("url"));
-      }
-    })
+    doForSelected(item => {
+      addon.emit("history:events:delete", item.get("url"));
+    });
   }
 })
+
+function doForSelected(fn) {
+  HistoryApp.historyList.forEach(item => {
+    if (item.get('selected')) {
+      fn(item);
+    }
+  });
+}
