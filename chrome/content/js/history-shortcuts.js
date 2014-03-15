@@ -10,6 +10,11 @@ document.body.addEventListener('keypress', ({ key, target }) => {
       addon.emit("history:events:delete", item.get("url"));
     });
   }
+  else if (key == 'o') {
+    doForSelected(item => {
+      addon.emit('open', item.get("url"));
+    });
+  }
 })
 
 function doForSelected(fn) {
