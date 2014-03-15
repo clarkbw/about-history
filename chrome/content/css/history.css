@@ -284,6 +284,15 @@ blockquote {
   border-color: -moz-use-text-color transparent;
 }
 
+ol.meta.invisible > li > a {
+  display: none;
+}
+
+.row:hover > div > ol.meta > li >  a#action-delete {
+  visibility: visible;
+  display: inline-block;
+}
+
 #lasthistory {
   margin-left: auto;
   margin-right: auto;
