@@ -6,6 +6,7 @@
 const tabs = require('sdk/tabs');
 const { on, once } = require('sdk/event/core');
 const { setTimeout } = require('sdk/timers');
+const { Bookmark, search, save, remove } = require("sdk/places/bookmarks");
 
 const { history } = require('about-history/history');
 const { events } = require('about-history/history/service');
@@ -34,6 +35,34 @@ exports["test history"] = function(assert, done) {
   tabs.open({
     url: url,
     onOpen: t => tab = t
+  })
+}
+
+exports["test bookmark"] = function(assert, done) {
+  let title = 'testBookmark1';
+  let url = host + title + '.html';
+  let srv = serve({ name: title });
+  let tab;
+
+  events.once('bookmark:added', ({url: bookmark}) => {
+    assert.pass('bookmark event happened');
+    assert.equal(url, bookmark,  url + ' was added as the bookmark');
+  });
+
+  events.once('bookmark:removed', ({url: bookmark}) => {
+    assert.pass('bookmark event happened');
+    assert.equal(url, bookmark, url + ' was removed as the bookmark');
+    srv.stop(_ => tab.close(done));
+  });
+
+  tabs.open({
+    url: url,
+    onOpen: function (t) {
+      tab = t;
+      save(Bookmark({ title: title, url: url })).on('end', saves => {
+        save(remove(saves));
+      });
+    }
   })
 }
 
