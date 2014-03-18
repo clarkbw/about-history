@@ -8,7 +8,7 @@ const { on, once } = require('sdk/event/core');
 const { setTimeout } = require('sdk/timers');
 
 const { history } = require('about-history/history');
-const { History } = require('about-history/history/service');
+const { events } = require('about-history/history/service');
 
 const { serve, host } = require('./httpd');
 
@@ -20,7 +20,7 @@ exports["test history"] = function(assert, done) {
   let srv = serve({ name: title });
   let tab;
 
-  History.once('visit', data => {
+  events.once('visit', data => {
     assert.pass('visit event happened');
     setTimeout(_ => {
       history().then(results => {
