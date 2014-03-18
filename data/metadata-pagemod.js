@@ -10,6 +10,7 @@ setTimeout(_ => {
   getIcons();
   setTimeout(_ => {
     if (Object.keys(metas).length > 0) {
+      metas['referrer'] = document.referrer;
       metas['url'] = document.location.href;
       self.port.emit("metas", metas);
     }
