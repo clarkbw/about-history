@@ -40,5 +40,16 @@ function getIcons() {
     if (node) {
       metas['icon:fluid-icon'] = node.getAttribute('href');
     }
+    node = document.querySelector("link[rel='image_src']");
+    if (node) {
+      metas['image_src'] = node.getAttribute('href');
+    }
+    if (document.contentType.startsWith("image/")) {
+      let pathname = document.location.pathname;
+      // for very large images this could be a real problem...
+      metas['image_src'] = document.location.href;
+      // only use the file name for the image
+      metas['title'] = pathname.substring(pathname.lastIndexOf("/") + 1, pathname.length);
+    }
   });
 };
