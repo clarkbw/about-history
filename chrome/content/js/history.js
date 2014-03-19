@@ -86,15 +86,18 @@ var HistoryItemView = Backbone.View.extend({
   onClickEllipsisExpand : function () {
     this.$el.find("button.action-expand").button('toggle');
     return this.onClickHistoryExpand();
-    return false;
   },
   onClickHistoryExpand : function () {
-    // toggle the actual meta information
-    this.$el.find(".meta").toggleClass("invisible");
+    // toggle larger image
+    this.$el.find(".image").toggleClass("max-height-image");
+    // toggle the description area
+    this.$el.find(".block-description").toggleClass("hidden");
+    // toggle the actions
+    this.$el.find("ol.meta").toggleClass("invisible");
     // toggle the ... which indicates there is a description
     this.$el.find(".action-ellipsis").toggleClass("hidden");
-    this.$el.find("button.action-expand").toggleClass("active");
-    return false;
+     // we need to return true so the event can bubble up to the toggle button
+    return true;
   },
   onSelect: function() {
     let selected = !this.model.get("selected");

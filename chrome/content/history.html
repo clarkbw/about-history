@@ -82,11 +82,13 @@
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
               <a href="<%- get('url') %>" title="<%- title() %>" target="_blank" class="title"><%- title() %></a>
               <div title="<%- get('url') %>" class="text-muted host"><%- get('host') %></div>
-              <div class="hidden meta">
+              <div class="block-description hidden meta">
                 <% if (description()) { %>
                   <blockquote class="text-description text-muted small"><%- description() %></blockquote>
+                  <% if (has('referrer')) { %><div><%- get('referrer') %></div><% } %>
                 <% } %>
               </div>
+              <% if (has('twitter:site') || has('twitter:creator')) { %>
               <div>
                 <a href="<%- twitterURL(get('twitter:site')) %>" target="_blank" class="twitter-handle">
                   <%- get('twitter:site') %>
@@ -98,6 +100,7 @@
                   </a>
                 <% } %>
               </div>
+              <% } %>
               <% if (description()) { %>
                 <div class="action-ellipsis">...</div>
               <% } %>

@@ -171,6 +171,9 @@ img.favicon {
   max-height: 90px;
   max-width: 125px;
 }
+.max-height-image {
+  max-height: 100% !important;
+}
 
 .bookmarked {
   display: inline-block;
