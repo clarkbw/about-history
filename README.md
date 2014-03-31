@@ -10,7 +10,7 @@ Coding
 You'll need the latest verion of the [addon-sdk](https://github.com/mozilla/addon-sdk/)
 
 This add-on requires these modules in the `packages` directory.
- - [addon-pathfinder](https://github.com/erikvold/addon-pathfinder)
+ - [pathfinder](https://github.com/jetpack-labs/pathfinder)
  - [indexed-db-storage](https://github.com/clarkbw/indexed-db-storage)
 
 From the base directory do this:
