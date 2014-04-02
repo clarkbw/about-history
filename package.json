@@ -13,5 +13,14 @@
   "dependencies": [
     "pathfinder",
     "indexed-db-storage"
+  ],
+  "preferences": [
+    {
+      "name": "limit",
+      "title": "Limit",
+      "description": "The maximum number of results displayed",
+      "type": "integer",
+      "value": 50
+    }
   ]
 }
