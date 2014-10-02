@@ -16,8 +16,8 @@
     "url": "https://github.com/clarkbw/about-history.git"
   },
   "dependencies": {
-    "addon-pathfinder": ">= 1.0.2",
-    "indexed-db-storage": "git+ssh://git@github.com/clarkbw/indexed-db-storage.git"
+    "addon-pathfinder": "1.0.2",
+    "indexed-db-storage": "0.1.2"
   },
   "preferences": [
     {
