@@ -6,8 +6,8 @@
 const tabs = require("sdk/tabs");
 const { on, off } = require("sdk/event/core");
 
-const { Metadata } = require("about-history/metadata/events");
-require("about-history/metadata/setup");
+const { Metadata } = require("../lib/metadata/events");
+require("../lib/metadata/setup");
 
 const data = require("./fixtures");
 

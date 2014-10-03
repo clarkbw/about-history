@@ -19,6 +19,9 @@
     "addon-pathfinder": "1.0.2",
     "indexed-db-storage": "0.1.2"
   },
+  "devDependencies": {
+    "addon-httpd": "0.0.1"
+  },
   "preferences": [
     {
       "name": "limit",

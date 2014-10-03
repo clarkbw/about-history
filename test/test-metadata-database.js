@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-const database = require('about-history/metadata/database');
+const database = require('../lib/metadata/database');
 
 exports["test metadata database"] = function(assert, done) {
   let testURL = "http://localhost:9000";

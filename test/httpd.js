@@ -5,7 +5,7 @@
 
 const { Loader } = require('sdk/test/loader');
 const loader = Loader(module);
-const { startServerAsync } = loader.require('sdk/test/httpd');
+const { startServerAsync } = loader.require('addon-httpd');
 const { pathFor } = require('sdk/system');
 const file = require('sdk/io/file');
 
