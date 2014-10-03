@@ -1,0 +1,25 @@
+The files which make up about-history are developed by Mozilla and licensed
+under the MPL 2.0 (http://mozilla.org/MPL/2.0/), with the exception of the
+components listed below, which are made available by their authors under
+the licenses listed alongside.
+
+Underscore.js 1.6.0
+-------------------
+chrome/content/js/underscore-min.js
+Made available under the MIT license.
+
+jQuery v1.11.0
+--------------
+chrome/content/js/jquery-min.js
+Made available under the MIT license.
+
+Backbone.js 1.1.2
+-----------------
+chrome/content/js/backbone-min.js
+Made available under the MIT license.
+
+Bootstrap-datepicker
+--------------------
+chrome/content/js/bootstrap-datepicker.js
+Made available under the Apache License, Version 2.0 
+
