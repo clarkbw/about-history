@@ -3,13 +3,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 "use strict";
 
-unsafeWindow.addon = {
-  on: (type, listener) => {
-    self.port.on(type, data => {
-      listener(data);
-    })
-  },
-  emit: (type, data) => {
-    self.port.emit(type, data)
-  }
+var addon = createObjectIn(document.defaultView, { defineAs: "addon" });
+var on = (type, listener) => {
+  self.port.on(type, data => {
+    listener(data);
+  })
 };
+var emit = (type, data) => self.port.emit(type, data);
+
+exportFunction(on, addon, { defineAs: "on", "allowCallbacks": true })
+exportFunction(emit, addon, { defineAs: "emit" })
