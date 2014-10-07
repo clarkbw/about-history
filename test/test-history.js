@@ -8,8 +8,8 @@ const { on, once } = require('sdk/event/core');
 const { setTimeout } = require('sdk/timers');
 const { Bookmark, search, save, remove } = require("sdk/places/bookmarks");
 
-const { history } = require('about-history/history');
-const { events } = require('about-history/history/service');
+const { history } = require('../lib/history');
+const { events } = require('../lib/history/service');
 
 const { serve, host } = require('./httpd');
 
