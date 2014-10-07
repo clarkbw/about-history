@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "about-what": "1.0.0",
-    "addon-pathfinder": "1.0.2",
     "indexed-db-storage": "0.1.2"
   },
   "devDependencies": {
