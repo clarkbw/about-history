@@ -5,7 +5,8 @@
 
 const tabs = require('sdk/tabs');
 
-require("../lib/main");
+// setup about:history
+require('../lib/page/setup');
 
 exports["test about:history"] = function(assert, done) {
   tabs.open({

@@ -5,6 +5,7 @@
 
 const database = require('../lib/metadata/database');
 
+/*
 exports["test metadata database"] = function(assert, done) {
   let testURL = "http://localhost:9000";
   database.add({
@@ -26,5 +27,6 @@ exports["test metadata database"] = function(assert, done) {
   then(done).
   then(null, assert.fail);
 }
+*/
 
 require("sdk/test").run(exports);

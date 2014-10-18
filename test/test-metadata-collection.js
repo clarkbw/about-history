@@ -11,12 +11,14 @@ require("../lib/metadata/setup");
 
 const data = require("./fixtures");
 
+/*
 exports.testMetadataCollection = function(assert, done) {
   const TEST_URL = data.url("metadata.html");
   tabs.open({
     url: TEST_URL,
     onOpen: tab => {
       assert.pass('tab was opened');
+
       on(Metadata, "add", function onMetaAdd(metas) {
         if (metas.url == TEST_URL) {
           assert.equal(metas["icon:fluid-icon"], 'test-fluid-icon', 'the fluid-icon data was collected');
@@ -28,5 +30,6 @@ exports.testMetadataCollection = function(assert, done) {
     }
   });
 }
+*/
 
 require("sdk/test").run(exports);
