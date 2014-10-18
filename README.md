@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/erikvold/about-history.png)](https://travis-ci.org/erikvold/about-history)
+
 This is a Firefox Add-on that displays your history visually.  While you browse this add-on gathers additional meta data from the websites you visit; things like description, title, and images.  When you review your history via the `about:history` page you'll see more useful information than just the URL and page title normally provided.
 
 # Links
