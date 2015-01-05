@@ -1,3 +1,4 @@
+sudo: false
 language: node_js
 node_js:
   - "0.10"
@@ -10,8 +11,6 @@ before_install:
 before_script:
   - npm install jpm -g
   - npm install mozilla-download -g
-  - rm -r node_modules/about-what/test
-  - rm -r node_modules/indexed-db-storage/test
   - cd ..
   - mozilla-download --branch mozilla-central -c prerelease firefox
   - cd $TRAVIS_BUILD_DIR
