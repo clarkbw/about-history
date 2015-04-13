@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "about-what": "clarkbw/about-what#js-standards",
-    "indexed-db-storage": "^0.1.2"
+    "indexed-db-storage": "~0.2.0"
   },
   "devDependencies": {
     "addon-httpd": "0.0.1",
