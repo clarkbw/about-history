@@ -1,0 +1,9 @@
+{
+  "preset": "google",
+  "esnext": true,
+  "maximumLineLength": {
+     "value": 120,
+     "allowComments": true,
+     "allowRegex": true
+  }
+}

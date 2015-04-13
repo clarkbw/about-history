@@ -3,73 +3,74 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 'use strict';
 
+/* global _, $, addon, Backbone, moment, */
 var HistoryRouter = Backbone.Router.extend({
   // routes: {
-  //   "query/:type/:id"     :   "query",
-  //   "list/:id"            :   "list"
+  //   'query/:type/:id'     :   'query',
+  //   'list/:id'            :   'list'
   // }
 });
 
 var HistoryItem = Backbone.Model.extend({
   initialize : function initialize(model, options) {
-    this.set("time", moment(model.time));
-    if (this.get("twitter:creator") == this.get("twitter:site")) {
-      this.unset("twitter:creator");
+    this.set('time', moment(model.time));
+    if (this.get('twitter:creator') === this.get('twitter:site')) {
+      this.unset('twitter:creator');
     }
-    ["twitter:creator", "twitter:site"].forEach(function (t) {
+    ['twitter:creator', 'twitter:site'].forEach(function(t) {
       if (this.has(t) && !/^[@A-Za-z0-9_]{1,15}$/.test(this.get(t))) {
         this.unset(t);
       }
     }, this);
   },
-  _getNotNull : function (list) {
+  _getNotNull : function(list) {
     return this.get(list.find(key => {
       let value = this.get(key);
       return (value != null && value.length > 0);
     }));
   },
   // some standard and convenience methods for info
-  title : function () {
-    return this._getNotNull(["twitter:title", "og:title", "title"]);
+  title : function() {
+    return this._getNotNull(['twitter:title', 'og:title', 'title']);
   },
-  selected : function () {
-    return (this.get('selected') || false) ? "selected" : "";
+  selected : function() {
+    return (this.get('selected') || false) ? 'selected' : '';
   },
-  favicon : function () {
+  favicon : function() {
     return this.get('icon');
   },
-  description : function () {
-    return this._getNotNull(["twitter:description", "og:description"]);
+  description : function() {
+    return this._getNotNull(['twitter:description', 'og:description']);
   },
-  hasImage : function () {
+  hasImage : function() {
     return (this.image() != null);
   },
-  isBookmarked : function () {
+  isBookmarked : function() {
     return !!this.get('bookmarked');
   },
-  image : function () {
-    return this._getNotNull(["image_src", "icon:fluid-icon", "twitter:image", "twitter:image:src", "og:image"]);
+  image : function() {
+    return this._getNotNull(['image_src', 'icon:fluid-icon', 'twitter:image', 'twitter:image:src', 'og:image']);
   },
-  isSecure : function () {
-    return (this.get("scheme") === "https");
+  isSecure : function() {
+    return (this.get('scheme') === 'https');
   },
-  twitterURL : function (handle) {
+  twitterURL : function(handle) {
     if (handle) {
-      return "https://twitter.com/" + handle.replace(/^@/, '');
+      return 'https://twitter.com/' + handle.replace(/^@/, '');
     }
   }
 });
 
 var HistoryItemView = Backbone.View.extend({
   events : {
-    "click .circle, hr": "onSelect",
-    "click .action-expand" : "onClickHistoryExpand",
-    "click .action-ellipsis" : "onClickEllipsisExpand",
-    "click #action-delete" : "onDelete",
-    "click #action-delete-related" : "onDeleteRelated"
+    'click .circle, hr': 'onSelect',
+    'click .action-expand' : 'onClickHistoryExpand',
+    'click .action-ellipsis' : 'onClickEllipsisExpand',
+    'click #action-delete' : 'onDelete',
+    'click #action-delete-related' : 'onDeleteRelated'
   },
-  className : "history",
-  tagName : "li",
+  className : 'history',
+  tagName : 'li',
   template : _.template($('#history-item-template').html()),
   initialize: function initialize() {
     this.model.on('change', _ => this.render());
@@ -79,37 +80,38 @@ var HistoryItemView = Backbone.View.extend({
     this.$el.html(this.template(this.model));
     this.$el.find('.time').tooltip();
     this.$el.find('img.image').error(({ target }) => {
-      target.classList.add("hide");
+      target.classList.add('hide');
     }).attr('src', this.model.image());
     return this;
   },
-  onClickEllipsisExpand : function () {
-    this.$el.find("button.action-expand").button('toggle');
+  onClickEllipsisExpand : function() {
+    this.$el.find('button.action-expand').button('toggle');
     return this.onClickHistoryExpand();
   },
-  onClickHistoryExpand : function () {
+  onClickHistoryExpand : function() {
     // toggle larger image
-    this.$el.find(".image").toggleClass("max-height-image");
+    this.$el.find('.image').toggleClass('max-height-image');
     // toggle the description area
-    this.$el.find(".block-description").toggleClass("hidden");
+    this.$el.find('.block-description').toggleClass('hidden');
     // toggle the actions
-    this.$el.find("ol.meta").toggleClass("invisible");
+    this.$el.find('ol.meta').toggleClass('invisible');
     // toggle the ... which indicates there is a description
-    this.$el.find(".action-ellipsis").toggleClass("hidden");
-     // we need to return true so the event can bubble up to the toggle button
+    this.$el.find('.action-ellipsis').toggleClass('hidden');
+
+    // we need to return true so the event can bubble up to the toggle button
     return true;
   },
   onSelect: function() {
-    let selected = !this.model.get("selected");
-    this.model.set("selected", selected);
+    let selected = !this.model.get('selected');
+    this.model.set('selected', selected);
     return false;
   },
-  onDelete: function () {
-    addon.emit("history:events:delete", this.model.get("url"));
+  onDelete: function() {
+    addon.emit('history:events:delete', this.model.get('url'));
     return false;
   },
   onDeleteRelated: function() {
-    addon.emit("history:events:delete-related", this.model.get("url"));
+    addon.emit('history:events:delete-related', this.model.get('url'));
     return false;
   }
 });
@@ -117,36 +119,38 @@ var HistoryItemView = Backbone.View.extend({
 var HistoryList = Backbone.Collection.extend({
   model : HistoryItem,
   initialize : function initialize() {
-    addon.on("url:icon", icon => {
+    addon.on('url:icon', icon => {
       if (!icon) { return; }
-      var model = this.findWhere({ url : icon.url });
+      var model = this.findWhere({url : icon.url});
       if (model) {
-        model.set("icon", icon.icon_url);
+        model.set('icon', icon.iconUrl);
       }
     });
 
-    addon.on("url:meta", metas => {
+    addon.on('url:meta', metas => {
       if (!metas) { return; }
-      var model = this.findWhere({ url : metas.url });
+      var model = this.findWhere({url : metas.url});
       if (model) {
         model.set(metas);
       }
     });
 
-    addon.on("url:bookmark", ({ url }) => {
-      var model = this.findWhere({ url : url });
-      if (model)
-        model.set("bookmarked", true);
-    })
+    addon.on('url:bookmark', ({ url }) => {
+      var model = this.findWhere({url : url});
+      if (model) {
+        model.set('bookmarked', true);
+      }
+    });
 
-    addon.on("bookmark:removed", ({ url }) => {
-      var model = this.findWhere({ url : url });
-      if (model)
-        model.set("bookmarked", false);
-    })
+    addon.on('bookmark:removed', ({ url }) => {
+      var model = this.findWhere({url : url});
+      if (model) {
+        model.set('bookmarked', false);
+      }
+    });
 
-    addon.on("history:removed", ({ url }) => {
-      var model = this.findWhere({ url : url });
+    addon.on('history:removed', ({ url }) => {
+      var model = this.findWhere({url : url});
 
       if (model) {
         model.destroy();
@@ -160,47 +164,47 @@ var HistoryList = Backbone.Collection.extend({
 });
 
 var HistoryListView = Backbone.View.extend({
-  tagName : "ul",
-  className : "history-list",
+  tagName : 'ul',
+  className : 'history-list',
   initialize: function initialize() {
     this.collection.on('reset', this.render, this);
     this.collection.on('add', this.render, this);
   },
-  render: function () {
+  render: function() {
     this.$el.empty();
     this.collection.each(item => {
       var view = new HistoryItemView({model: item, id : item.id});
       this.$el.append(view.render().$el);
     });
-  return this;
+    return this;
   }
 });
 
 var SearchInputView = Backbone.View.extend({
   events : {
-    "keyup" : "onKeyUp"
+    'keyup' : 'onKeyUp'
   },
   initialize: function(options) {
     this.datePickerView = options.datePickerView;
   },
-  onKeyUp : function (e) {
+  onKeyUp : function(e) {
     // on ESC clear the search
-    if (e.keyCode == 27) {
-      this.$el.val("");
+    if (e.keyCode === 27) {
+      this.$el.val('');
     }
     sendQuery({
       date: this.datePickerView.model.date(),
-      query: $("#query").val()
+      query: $('#query').val()
     });
     // possibly debounce every second to set the query
-    // this.router.navigate("#query/query");
+    // this.router.navigate('#query/query');
   }
 });
 
 function sendQuery({ date, query }) {
-  addon.emit("history:events:query", {
-    from: moment(date).startOf('day').format("X") * 1000,
-    to: moment(date).endOf('day').format("X") * 1000,
+  addon.emit('history:events:query', {
+    from: moment(date).startOf('day').format('X') * 1000,
+    to: moment(date).endOf('day').format('X') * 1000,
     query: query.trim()
   });
 }
@@ -208,56 +212,55 @@ function sendQuery({ date, query }) {
 function isSameDay (day1, day2) {
   return day1.isSame(day2, 'day') &&
          day1.isSame(day2, 'month') &&
-         day1.isSame(day2, 'year')
+         day1.isSame(day2, 'year');
 }
 
 var DateModel = Backbone.Model.extend({
-  subtractDay : function () {
-    var m = this.moment().subtract('days', 1);
+  subtractDay : function() {
+    var m = this.moment().subtract(1, 'days');
     this.set('date', m.toJSON());
   },
-  addDay : function () {
-    var m = this.moment().add('days', 1);
+  addDay : function() {
+    var m = this.moment().add(1, 'days');
     this.set('date', m.toJSON());
   },
   isYesterday: function() {
-    return isSameDay(moment().subtract('days', 1), this.moment());
+    return isSameDay(moment().subtract(1, 'days'), this.moment());
   },
-  isToday : function () {
+  isToday : function() {
     return isSameDay(moment(), this.moment());
   },
-  isTomorrow: function () {
-    return isSameDay(moment().add('days', 1), this.moment())
+  isTomorrow: function() {
+    return isSameDay(moment().add(1, 'days'), this.moment());
   },
-  setDate : function (date) {
+  setDate : function(date) {
     this.set('date', moment(date).startOf('day').toJSON());
   },
-  moment : function () {
+  moment : function() {
     return moment(this.get('date'));
   },
-  date : function () {
+  date : function() {
     return this.moment().toDate();
   }
 });
 
 var BackDateStepView = Backbone.View.extend({
   events : {
-    "click" : "onClick"
+    'click' : 'onClick'
   },
-  onClick : function () {
+  onClick : function() {
     this.model.subtractDay();
   },
   initialize: function initialize() {
-    this.model.on("change", this.render, this);
+    this.model.on('change', this.render, this);
   },
-  render: function () {
+  render: function() {
     if (this.model.isTomorrow()) {
-      this.$el.text("Today");
-    }
-    else if (this.model.isToday()) {
-      this.$el.text("Yesterday");
+      this.$el.text('Today');
+    } else if (this.model.isToday()) {
+      this.$el.text('Yesterday');
     } else {
-      this.$el.text("Back");
+      this.$el.text('Back');
     }
     return this;
   }
@@ -265,34 +268,30 @@ var BackDateStepView = Backbone.View.extend({
 
 var ForwardDateStepView = Backbone.View.extend({
   events : {
-    "click" : "onClick"
+    'click' : 'onClick'
   },
-  onClick : function () {
+  onClick : function() {
     this.model.addDay();
   },
   initialize: function initialize() {
-    this.model.on("change", this.render, this);
+    this.model.on('change', this.render, this);
   },
-  render: function () {
+  render: function() {
     if (this.model.isTomorrow()) {
-      this.$el.text("Beyond");
-      this.$el.addClass("hide");
-    }
-    else if (this.model.isToday()) {
-      this.$el.text("Tomorrow");
-      this.$el.removeClass("hide");
-    }
-    else if (this.model.isYesterday()) {
-      this.$el.text("Today");
-      this.$el.removeClass("hide");
-    }
-    else if (isSameDay(moment().subtract('days', 2), this.model.moment())) {
-      this.$el.text("Yesterday");
-      this.$el.removeClass("hide");
-    }
-    else {
-      this.$el.text("Forward");
-      this.$el.removeClass("hide");
+      this.$el.text('Beyond');
+      this.$el.addClass('hide');
+    } else if (this.model.isToday()) {
+      this.$el.text('Tomorrow');
+      this.$el.removeClass('hide');
+    } else if (this.model.isYesterday()) {
+      this.$el.text('Today');
+      this.$el.removeClass('hide');
+    } else if (isSameDay(moment().subtract(2, 'days'), this.model.moment())) {
+      this.$el.text('Yesterday');
+      this.$el.removeClass('hide');
+    } else {
+      this.$el.text('Forward');
+      this.$el.removeClass('hide');
     }
     return this;
   }
@@ -300,33 +299,33 @@ var ForwardDateStepView = Backbone.View.extend({
 
 var DatePickerView = Backbone.View.extend({
   events : {
-    "click" : "onClick",
-    "changeDate" : "onChangeDate"
+    'click' : 'onClick',
+    'changeDate' : 'onChangeDate'
   },
-  onClick : function () {
+  onClick : function() {
     this.$el.datepicker('show');
   },
-  onChangeDate : function (e) {
+  onChangeDate : function(e) {
     this.model.setDate(e.date);
   },
   initialize: function initialize() {
-    this.model.on("change", this.render, this);
-    this.model.on("change", function () {
+    this.model.on('change', this.render, this);
+    this.model.on('change', function() {
       sendQuery({
         date: this.model.date(),
-        query: $("#query").val()
+        query: $('#query').val()
       });
     }, this);
 
-    this.back = new BackDateStepView({ model : this.model, el : $("#date-back") });
-    this.forward = new ForwardDateStepView({ model : this.model, el : $("#date-forward") });
+    this.back = new BackDateStepView({model: this.model, el: $('#date-back')});
+    this.forward = new ForwardDateStepView({model: this.model, el: $('#date-forward')});
   },
-  render: function () {
+  render: function() {
     var date = this.model.date();
-    var tomorrow = moment().add('days', 1).toDate();
-    this.$el.datepicker({ autoclose : true, todayHighlight : true, endDate : tomorrow, todayBtn : "linked" });
+    var tomorrow = moment().add(1, 'days').toDate();
+    this.$el.datepicker({autoclose: true, todayHighlight: true, endDate: tomorrow, todayBtn: 'linked'});
     this.$el.datepicker('setDate', date);
-    this.$el.text(moment(date).format("dddd, MMMM Do" + ((moment().isSame(date, 'year')) ? "" : " YYYY")));
+    this.$el.text(moment(date).format('dddd, MMMM Do' + ((moment().isSame(date, 'year')) ? '' : ' YYYY')));
     return this;
   }
 });
@@ -336,42 +335,41 @@ var Application = Backbone.View.extend({
     var hl = this.historyList = new HistoryList();
     this.historyListView = new HistoryListView({
       collection : this.historyList,
-      el : $("#history-list-view")
+      el : $('#history-list-view')
     });
     let dateModel = new DateModel();
     this.datePickerView = new DatePickerView({
       model : dateModel,
-      el : $("#date")
+      el : $('#date')
     });
     this.searchInputView = new SearchInputView({
-      el : $("#query"),
+      el : $('#query'),
       datePickerView: this.datePickerView
     });
 
-    addon.on("history:reset", items => {
+    addon.on('history:reset', items => {
       if (Array.isArray(items)) {
         hl.reset(items.map(i => new HistoryItem(i)));
       }
     });
 
     // this will help get single history additions
-    addon.on("history:add", item => {
+    addon.on('history:add', item => {
       // check if the time for the history item is for the
       // date currently displayed
       if (isSameDay(moment(item.time), dateModel.moment())) {
-        var hi = hl.findWhere({ url : item.url });
+        var hi = hl.findWhere({url: item.url});
         if (hi) {
           hi.set(item);
-        }
-        else {
-          hl.add(new HistoryItem(item), { at: 0 });
+        } else {
+          hl.add(new HistoryItem(item), {at: 0});
         }
       }
     });
 
     // animate a scroll back to the top
-    $("a[href=#top]").click(function () {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('a[href=#top]').click(function() {
+      $('html, body').animate({scrollTop: 0}, 'slow');
       return false;
     });
 
@@ -384,4 +382,4 @@ var Application = Backbone.View.extend({
   }
 });
 
-var HistoryApp = new Application({el : $("#history-items")});
+var HistoryApp = new Application({el : $('#history-items')});

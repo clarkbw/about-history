@@ -10,17 +10,24 @@
   ],
   "license": "MPL 2.0",
   "version": "0.1.2",
-  "main" : "lib/main",
+  "main": "./lib/main",
+  "scripts": {
+    "start": "jpm run -b nightly",
+    "pretest": "jscs . && jshint .",
+    "test": "jpm test -b nightly",
+    "outdated": "npm outdated --depth=0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/clarkbw/about-history.git"
   },
   "dependencies": {
-    "about-what": "1.0.0",
-    "indexed-db-storage": "0.1.2"
+    "about-what": "clarkbw/about-what#js-standards",
+    "indexed-db-storage": "^0.1.2"
   },
   "devDependencies": {
-    "addon-httpd": "0.0.1"
+    "addon-httpd": "0.0.1",
+    "babelify": "^6.0.2"
   },
   "preferences": [
     {
