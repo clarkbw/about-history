@@ -25,6 +25,7 @@ var superagent = require('superagent');
 var moment = require('moment');
 var _ = require('lodash');
 
+// let's just admit that this sucks and we need to find a better way
 var addon = addon || { emit: _.noop, on: _.noop };
 
 var HistoryActions = (function () {
