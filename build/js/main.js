@@ -5,15 +5,16 @@ var React = require('react');
 var $ = require('jquery');
 var Router = require('react-router');
 var routes = require('./routes.jsx');
+var App = require('./views/app.jsx');
 
 $(function () {
   'use strict';
-  Router.run(routes, function (Handler) {
-    React.render(React.createElement(Handler, null), document.getElementById('app'));
-  });
+  // Router.run(routes, Router.StaticLocation, function(Handler) {
+  React.render(React.createElement(App, null), document.getElementById('app'));
+  // });
 });
 
-},{"./routes.jsx":4,"jquery":25,"react":239,"react-router":52}],2:[function(require,module,exports){
+},{"./routes.jsx":4,"./views/app.jsx":6,"jquery":25,"react":239,"react-router":52}],2:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -138,9 +139,8 @@ var Route = Router.Route;
 
 var App = require('./views/app.jsx');
 var History = require('./views/history-list.jsx');
-// var RepoDetails = require('./views/repo-details.jsx');
 
-module.exports = React.createElement(Route, { handler: App }, React.createElement(Route, { name: 'history-list', handler: History, path: '/' }));
+module.exports = React.createElement(Route, { handler: App, path: '/' }, React.createElement(Route, { name: 'history-list', handler: History, path: '/' }));
 // <Route name='repo-details' handler={RepoDetails} path='/repo/:owner/:name' />
 
 },{"./views/app.jsx":6,"./views/history-list.jsx":9,"react":239,"react-router":52}],5:[function(require,module,exports){
@@ -447,17 +447,18 @@ module.exports = alt.createStore(HistoryStore);
 'use strict';
 
 var React = require('react');
-var RouteHandler = require('react-router').RouteHandler;
+var History = require('./history-list.jsx');
+
 var Header = require('./header.jsx');
 
 module.exports = React.createClass({ displayName: 'exports',
   render: function render() {
     'use strict';
-    return React.createElement('div', null, React.createElement('div', { className: 'container' }, React.createElement(RouteHandler, null)));
+    return React.createElement('div', null, React.createElement('div', { className: 'container' }, React.createElement(History, null)));
   }
 });
 
-},{"./header.jsx":7,"react":239,"react-router":52}],7:[function(require,module,exports){
+},{"./header.jsx":7,"./history-list.jsx":9,"react":239}],7:[function(require,module,exports){
 'use strict';
 
 var React = require('react');

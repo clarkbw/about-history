@@ -1,5 +1,6 @@
 var React = require('react');
-var RouteHandler = require('react-router').RouteHandler;
+var History = require('./history-list.jsx');
+
 var Header = require('./header.jsx');
 
 module.exports = React.createClass({
@@ -8,7 +9,7 @@ module.exports = React.createClass({
     return (
       <div>
         <div className='container'>
-          <RouteHandler />
+          <History/>
         </div>
       </div>
     );
