@@ -1,0 +1,34 @@
+{
+  "name": "about-history-html",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "alt": "latest",
+    "babelify": "latest",
+    "browserify": "latest",
+    "gulp": "latest",
+    "gulp-clean": "latest",
+    "gulp-concat": "latest",
+    "gulp-livereload": "latest",
+    "gulp-sass": "latest",
+    "gulp-server": "latest",
+    "gulp-webserver": "latest",
+    "jquery": "^2.1.4",
+    "lodash": "^3.9.1",
+    "moment": "^2.10.3",
+    "react": "latest",
+    "react-router": "latest",
+    "reactify": "latest",
+    "superagent": "latest",
+    "watchify": "latest"
+  },
+  "devDependencies": {
+    "vinyl-source-stream": "latest"
+  }
+}

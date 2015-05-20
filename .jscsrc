@@ -1,0 +1,9 @@
+{
+  "excludeFiles": ["node_modules", "test", "app/bower"],
+  "esnext": true,
+  "maximumLineLength": {
+     "value": 120,
+     "allowComments": true,
+     "allowRegex": true
+  }
+}

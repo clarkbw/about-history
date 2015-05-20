@@ -1,0 +1,9 @@
+{
+  "node": true,
+  "esnext": true,
+  "indent": 2,
+  "latedef": "nofunc",
+  "quotmark": "single",
+  "strict":true,
+  "maxlen": 120
+}
