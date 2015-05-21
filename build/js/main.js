@@ -27,7 +27,12 @@ var moment = require('moment');
 var _ = require('lodash');
 
 // let's just admit that this sucks and we need to find a better way
-var addon = addon || { emit: _.noop, on: _.noop };
+var addon = window.addon || { emit: function emit() {
+    console.log(arguments);
+  },
+  on: function on() {
+    console.log(arguments);
+  } };
 
 var HistoryActions = (function () {
   function HistoryActions() {
