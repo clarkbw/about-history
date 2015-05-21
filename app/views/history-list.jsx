@@ -12,6 +12,7 @@ module.exports = React.createClass({
   },
   componentWillMount() {
     HistoryStore.listen(this.onChange);
+    HistoryActions.search(new Date(), '');
   },
   componentWillUnmount() {
     HistoryStore.unlisten(this.onChange);
@@ -22,7 +23,7 @@ module.exports = React.createClass({
   search(evt) {
     evt.preventDefault();
     var searchText = this.refs.searchText.getDOMNode().value;
-    HistoryActions.search(searchText);
+    HistoryActions.search(new Date(), searchText);
   },
   renderHistory() {
     return _.map(this.state.items, (item) => {

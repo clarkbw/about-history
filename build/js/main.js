@@ -520,6 +520,7 @@ module.exports = React.createClass({ displayName: 'exports',
   },
   componentWillMount: function componentWillMount() {
     HistoryStore.listen(this.onChange);
+    HistoryActions.search(new Date(), '');
   },
   componentWillUnmount: function componentWillUnmount() {
     HistoryStore.unlisten(this.onChange);
@@ -530,7 +531,7 @@ module.exports = React.createClass({ displayName: 'exports',
   search: function search(evt) {
     evt.preventDefault();
     var searchText = this.refs.searchText.getDOMNode().value;
-    HistoryActions.search(searchText);
+    HistoryActions.search(new Date(), searchText);
   },
   renderHistory: function renderHistory() {
     return _.map(this.state.items, function (item) {
