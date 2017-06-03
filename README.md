@@ -4,6 +4,8 @@ This is a Firefox Add-on that displays your history visually.  While you browse 
 
 # Links
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/clarkbw/about-history.svg)](https://greenkeeper.io/)
+
 * [Screenshot](http://cl.ly/image/0g2W1Z353A0w)
 * [Example Page](https://rawgithub.com/clarkbw/about-history/master/chrome/content/history.html)
 * [Add-on](https://addons.mozilla.org/firefox/addon/about-history/)
