@@ -26,8 +26,8 @@
     "indexed-db-storage": "~0.2.0"
   },
   "devDependencies": {
-    "addon-httpd": "0.0.3",
-    "babelify": "^6.0.2"
+    "addon-httpd": "0.1.4",
+    "babelify": "^7.3.0"
   },
   "preferences": [
     {
